@@ -1,0 +1,1181 @@
+{
+  "results": {
+    "Test 1 (Health)": "PASS",
+    "Test 2 (States)": "PASS",
+    "Test 3 (|0> NONE)": "PASS",
+    "Test 4 (|1> NONE)": "PASS",
+    "Test 5 (|+> NONE)": "PASS",
+    "Test 6 (|-> NONE)": "PASS",
+    "Test 7 (Forgery)": "PASS",
+    "Test 8 (Channel)": "PASS",
+    "Test 9 (Impersonation)": "PASS",
+    "Test 10 (Unauthorized)": "PASS",
+    "Test 11 (Replay)": "PASS",
+    "Test 12 (Invalid State)": "PASS",
+    "Test 13 (End-to-End)": "PASS",
+    "Test 14 (Security)": "PASS",
+    "Test 15 (Performance)": "PASS",
+    "Test 16 (Research)": "PASS",
+    "Test 17 (Mathematical)": "PASS"
+  },
+  "details": {
+    "t1": {
+      "status": 200,
+      "resp": {
+        "status": "healthy",
+        "project": "Quantum-Inspired Cyber Threat Detection for Digital Signature Security",
+        "problem_statement": "SIH26141",
+        "team": "Qubits",
+        "qiskit_backend": "Statevector Simulation"
+      }
+    },
+    "t2": {
+      "status": 200,
+      "resp": {
+        "states": [
+          "0",
+          "1",
+          "+",
+          "-"
+        ],
+        "bases": [
+          "Z",
+          "X"
+        ],
+        "attacks": [
+          "NONE",
+          "FORGERY",
+          "IMPERSONATION",
+          "REPLAY",
+          "CHANNEL"
+        ],
+        "verifiers": [
+          "Bob",
+          "Eve"
+        ]
+      }
+    },
+    "t3": {
+      "status": 200,
+      "resp": {
+        "status": "VALID",
+        "threat_detected": false,
+        "state": "0",
+        "basis": "Z",
+        "attack": "NONE",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 1000,
+          "1": 0
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "NONE",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": false,
+          "verdict": "NORMAL",
+          "verdict_label": "\u2713 NORMAL (BELOW THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "Observed error rate (0.00%) is within threshold (10.00%)"
+        },
+        "forgery_probability": {
+          "attack": "NONE",
+          "original_state": "0",
+          "received_state": "0",
+          "total_shots": 1000,
+          "mismatches": 0,
+          "mismatch_rate": 0.0,
+          "estimated_prob_val": 0.0,
+          "estimated_prob_str": "0.00%",
+          "status": "VALID SIGNATURE",
+          "is_applicable": true
+        },
+        "attack_details": {
+          "attack": "Genuine / No Attack",
+          "received_state": "0",
+          "detected": false
+        }
+      }
+    },
+    "t4": {
+      "status": 200,
+      "resp": {
+        "status": "VALID",
+        "threat_detected": false,
+        "state": "1",
+        "basis": "Z",
+        "attack": "NONE",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 0,
+          "1": 1000
+        },
+        "expected_probs": {
+          "0": 0.0,
+          "1": 1.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "NONE",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": false,
+          "verdict": "NORMAL",
+          "verdict_label": "\u2713 NORMAL (BELOW THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "Observed error rate (0.00%) is within threshold (10.00%)"
+        },
+        "forgery_probability": {
+          "attack": "NONE",
+          "original_state": "1",
+          "received_state": "1",
+          "total_shots": 1000,
+          "mismatches": 0,
+          "mismatch_rate": 0.0,
+          "estimated_prob_val": 0.0,
+          "estimated_prob_str": "0.00%",
+          "status": "VALID SIGNATURE",
+          "is_applicable": true
+        },
+        "attack_details": {
+          "attack": "Genuine / No Attack",
+          "received_state": "1",
+          "detected": false
+        }
+      }
+    },
+    "t5": {
+      "status": 200,
+      "resp": {
+        "status": "VALID",
+        "threat_detected": false,
+        "state": "+",
+        "basis": "X",
+        "attack": "NONE",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 1000,
+          "1": 0
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "NONE",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": false,
+          "verdict": "NORMAL",
+          "verdict_label": "\u2713 NORMAL (BELOW THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "Observed error rate (0.00%) is within threshold (10.00%)"
+        },
+        "forgery_probability": {
+          "attack": "NONE",
+          "original_state": "+",
+          "received_state": "+",
+          "total_shots": 1000,
+          "mismatches": 0,
+          "mismatch_rate": 0.0,
+          "estimated_prob_val": 0.0,
+          "estimated_prob_str": "0.00%",
+          "status": "VALID SIGNATURE",
+          "is_applicable": true
+        },
+        "attack_details": {
+          "attack": "Genuine / No Attack",
+          "received_state": "+",
+          "detected": false
+        }
+      }
+    },
+    "t6": {
+      "status": 200,
+      "resp": {
+        "status": "VALID",
+        "threat_detected": false,
+        "state": "-",
+        "basis": "X",
+        "attack": "NONE",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 0,
+          "1": 1000
+        },
+        "expected_probs": {
+          "0": 0.0,
+          "1": 1.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "NONE",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": false,
+          "verdict": "NORMAL",
+          "verdict_label": "\u2713 NORMAL (BELOW THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "Observed error rate (0.00%) is within threshold (10.00%)"
+        },
+        "forgery_probability": {
+          "attack": "NONE",
+          "original_state": "-",
+          "received_state": "-",
+          "total_shots": 1000,
+          "mismatches": 0,
+          "mismatch_rate": 0.0,
+          "estimated_prob_val": 0.0,
+          "estimated_prob_str": "0.00%",
+          "status": "VALID SIGNATURE",
+          "is_applicable": true
+        },
+        "attack_details": {
+          "attack": "Genuine / No Attack",
+          "received_state": "-",
+          "detected": false
+        }
+      }
+    },
+    "t7": {
+      "status": 200,
+      "resp": {
+        "status": "THREAT",
+        "threat_detected": true,
+        "state": "0",
+        "basis": "Z",
+        "attack": "FORGERY",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 0,
+          "1": 1000
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 1.0,
+        "error_rate_percent": 100.0,
+        "chi_square": 11000.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "FORGERY",
+          "observed_error_pct": 100.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": true,
+          "chi_square_val": 11000.0,
+          "chi_threshold": 10.0,
+          "chi_threat": true,
+          "is_threat": true,
+          "verdict": "THREAT",
+          "verdict_label": "\u26a0 THREAT (ABOVE THRESHOLD)",
+          "margin_pct": 90.0,
+          "reason": "Observed error rate (100.00%) exceeds threshold (10.00%) & Chi-square statistic (11000.00) exceeds threshold (10.00)"
+        },
+        "forgery_probability": {
+          "attack": "FORGERY",
+          "original_state": "0",
+          "received_state": "1",
+          "total_shots": 1000,
+          "mismatches": 1000,
+          "mismatch_rate": 1.0,
+          "estimated_prob_val": 100.0,
+          "estimated_prob_str": "100.00%",
+          "status": "SUSPECTED FORGERY",
+          "is_applicable": true
+        },
+        "attack_details": {
+          "attack": "Forgery Attack",
+          "original_state": "0",
+          "received_state": "1",
+          "signature_modified": true,
+          "detected": true
+        }
+      }
+    },
+    "t8": {
+      "status": 200,
+      "resp": {
+        "status": "THREAT",
+        "threat_detected": true,
+        "state": "+",
+        "basis": "X",
+        "attack": "CHANNEL",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 0,
+          "1": 1000
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 1.0,
+        "error_rate_percent": 100.0,
+        "chi_square": 11000.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "CHANNEL",
+          "observed_error_pct": 100.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": true,
+          "chi_square_val": 11000.0,
+          "chi_threshold": 10.0,
+          "chi_threat": true,
+          "is_threat": true,
+          "verdict": "THREAT",
+          "verdict_label": "\u26a0 THREAT (ABOVE THRESHOLD)",
+          "margin_pct": 90.0,
+          "reason": "Observed error rate (100.00%) exceeds threshold (10.00%) & Chi-square statistic (11000.00) exceeds threshold (10.00)"
+        },
+        "forgery_probability": {
+          "attack": "CHANNEL",
+          "original_state": "+",
+          "received_state": "-",
+          "total_shots": 1000,
+          "mismatches": 1000,
+          "mismatch_rate": 1.0,
+          "estimated_prob_val": 100.0,
+          "estimated_prob_str": "100.00%",
+          "status": "SUSPECTED FORGERY",
+          "is_applicable": true
+        },
+        "attack_details": {
+          "attack": "Channel Manipulation",
+          "original_state": "+",
+          "received_state": "-",
+          "manipulation": "Z",
+          "state_changed": true,
+          "invisible": false,
+          "invisibility_reason": "",
+          "detected": true
+        }
+      }
+    },
+    "t9": {
+      "status": 200,
+      "resp": {
+        "status": "THREAT",
+        "threat_detected": true,
+        "state": "0",
+        "basis": "Z",
+        "attack": "IMPERSONATION",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 1000,
+          "1": 0
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "IMPERSONATION",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": true,
+          "verdict": "THREAT",
+          "verdict_label": "\u26a0 THREAT (ABOVE THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "Identity Verification Failed (Sender Mismatch)"
+        },
+        "forgery_probability": {
+          "attack": "Impersonation Attack",
+          "original_state": "0",
+          "received_state": "0",
+          "total_shots": 1000,
+          "mismatches": "N/A",
+          "mismatch_rate": "N/A",
+          "estimated_prob_val": null,
+          "estimated_prob_str": "N/A \u2014 Identity Verification",
+          "status": "REJECTED (SENDER MISMATCH)",
+          "is_applicable": false
+        },
+        "attack_details": {
+          "attack": "Impersonation Attack",
+          "expected_sender": "Alice",
+          "received_sender": "Attacker",
+          "identity_verified": false,
+          "detected": true
+        }
+      }
+    },
+    "t10": {
+      "status": 200,
+      "resp": {
+        "status": "BLOCKED",
+        "threat_detected": true,
+        "attack": "UNAUTHORIZED VERIFICATION ATTEMPT",
+        "message": "Unauthorized verifier 'Eve' attempt blocked.",
+        "verifier": "Eve",
+        "sender": "Alice",
+        "state": "0",
+        "authorization_details": {
+          "sender": "Alice",
+          "expected_verifier": "Bob",
+          "actual_verifier": "Eve",
+          "identity_status": "UNAUTHORIZED",
+          "verification_allowed": false,
+          "threat_detected": true,
+          "threat_type": "UNAUTHORIZED VERIFICATION ATTEMPT",
+          "signature_valid": true,
+          "verdict_label": "\u26a0 UNAUTHORIZED VERIFICATION ATTEMPT (BLOCKED)",
+          "access_label": "BLOCKED",
+          "verdict": "THREAT DETECTED (UNAUTHORIZED ACCESS)",
+          "is_authorized": false
+        }
+      }
+    },
+    "t11": {
+      "resp1": {
+        "status": "VALID",
+        "threat_detected": false,
+        "state": "0",
+        "basis": "Z",
+        "attack": "REPLAY",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 1000,
+          "1": 0
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "REPLAY",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": false,
+          "verdict": "NORMAL",
+          "verdict_label": "\u2713 NORMAL (BELOW THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "First Signature Use Verified"
+        },
+        "forgery_probability": {
+          "attack": "Replay Attack",
+          "original_state": "0",
+          "received_state": "0",
+          "total_shots": 1000,
+          "mismatches": "N/A",
+          "mismatch_rate": "N/A",
+          "estimated_prob_val": null,
+          "estimated_prob_str": "N/A \u2014 Replay Detection",
+          "status": "VALID (FIRST USE)",
+          "is_applicable": false
+        },
+        "attack_details": {
+          "attack": "Replay Attack",
+          "message": "SIH Replay Test Message",
+          "signature_id": "replay_fixed_sig_001",
+          "replay_hash": "eda1fc363f8b1e1567bc39ebc406a33ba3b4193bec185c293b6766d4a5914b40",
+          "replay_detected": false,
+          "previously_seen": false,
+          "first_use": true,
+          "detected": false
+        }
+      },
+      "resp2": {
+        "status": "THREAT",
+        "threat_detected": true,
+        "state": "0",
+        "basis": "Z",
+        "attack": "REPLAY",
+        "verifier": "Bob",
+        "sender": "Alice",
+        "shots": 1000,
+        "measurement_counts": {
+          "0": 1000,
+          "1": 0
+        },
+        "expected_probs": {
+          "0": 1.0,
+          "1": 0.0
+        },
+        "error_rate": 0.0,
+        "error_rate_percent": 0.0,
+        "chi_square": 0.0,
+        "threshold": {
+          "error_threshold_percent": 10.0,
+          "chi_threshold": 10.0
+        },
+        "threshold_result": {
+          "attack": "REPLAY",
+          "observed_error_pct": 0.0,
+          "error_threshold_pct": 10.0,
+          "error_threat": false,
+          "chi_square_val": 0.0,
+          "chi_threshold": 10.0,
+          "chi_threat": false,
+          "is_threat": true,
+          "verdict": "THREAT",
+          "verdict_label": "\u26a0 THREAT (ABOVE THRESHOLD)",
+          "margin_pct": -10.0,
+          "reason": "Replay Nonce Hash Re-used"
+        },
+        "forgery_probability": {
+          "attack": "Replay Attack",
+          "original_state": "0",
+          "received_state": "0",
+          "total_shots": 1000,
+          "mismatches": "N/A",
+          "mismatch_rate": "N/A",
+          "estimated_prob_val": null,
+          "estimated_prob_str": "N/A \u2014 Replay Detection",
+          "status": "REPLAY DETECTED",
+          "is_applicable": false
+        },
+        "attack_details": {
+          "attack": "Replay Attack",
+          "message": "SIH Replay Test Message",
+          "signature_id": "replay_fixed_sig_001",
+          "replay_hash": "eda1fc363f8b1e1567bc39ebc406a33ba3b4193bec185c293b6766d4a5914b40",
+          "replay_detected": true,
+          "previously_seen": true,
+          "first_use": false,
+          "detected": true
+        }
+      }
+    },
+    "t12": {
+      "status": 400,
+      "resp": {
+        "detail": "Invalid quantum state 'INVALID'. Allowed states: '0', '1', '+', '-'"
+      }
+    },
+    "t13": {
+      "status": 200,
+      "resp": {
+        "matrix": [
+          {
+            "scenario_id": 1,
+            "scenario_name": "NONE / LEGITIMATE",
+            "attack_vector": "NONE",
+            "sender": "Alice",
+            "verifier": "Bob",
+            "path": "Full Pipeline",
+            "expected_decision": "VALID",
+            "actual_decision": "VALID",
+            "status": "PASS"
+          },
+          {
+            "scenario_id": 2,
+            "scenario_name": "FORGERY ATTACK",
+            "attack_vector": "FORGERY",
+            "sender": "Alice",
+            "verifier": "Bob",
+            "path": "Full Pipeline",
+            "expected_decision": "THREAT",
+            "actual_decision": "THREAT",
+            "status": "PASS"
+          },
+          {
+            "scenario_id": 3,
+            "scenario_name": "IMPERSONATION ATTACK",
+            "attack_vector": "IMPERSONATION",
+            "sender": "Attacker",
+            "verifier": "Bob",
+            "path": "Identity Layer",
+            "expected_decision": "THREAT",
+            "actual_decision": "THREAT",
+            "status": "PASS"
+          },
+          {
+            "scenario_id": 4,
+            "scenario_name": "REPLAY ATTACK",
+            "attack_vector": "REPLAY",
+            "sender": "Alice",
+            "verifier": "Bob",
+            "path": "Replay Cache Layer",
+            "expected_decision": "THREAT",
+            "actual_decision": "THREAT",
+            "status": "PASS"
+          },
+          {
+            "scenario_id": 5,
+            "scenario_name": "CHANNEL MANIPULATION",
+            "attack_vector": "CHANNEL",
+            "sender": "Alice",
+            "verifier": "Bob",
+            "path": "Full Pipeline",
+            "expected_decision": "THREAT",
+            "actual_decision": "THREAT",
+            "status": "PASS"
+          },
+          {
+            "scenario_id": 6,
+            "scenario_name": "UNAUTHORIZED VERIFICATION",
+            "attack_vector": "NONE",
+            "sender": "Alice",
+            "verifier": "Eve",
+            "path": "Authorization Gateway",
+            "expected_decision": "BLOCKED",
+            "actual_decision": "BLOCKED",
+            "status": "PASS"
+          }
+        ],
+        "metrics": {
+          "total_scenarios": 6,
+          "passed_scenarios": 6,
+          "failed_scenarios": 0,
+          "validation_rate": 100.0,
+          "validation_rate_str": "100.00%",
+          "validation_label": "Controlled End-to-End Validation Rate"
+        },
+        "performance_reference": {
+          "full_pipeline_avg_ms": 14.06159200031349,
+          "full_pipeline_avg_ms_str": "14.062 ms",
+          "auth_gateway_avg_ms": 0.0007380011084023863,
+          "auth_gateway_avg_ms_str": "0.001 ms",
+          "runtime_label": "Controlled software-simulation runtime"
+        },
+        "security_metrics_reference": {
+          "TPR": 100.0,
+          "FNR": 0.0,
+          "FPR": 0.0,
+          "TNR": 100.0,
+          "authorization_detection_rate_str": "100.00%",
+          "false_authorization_rate_str": "0.00%"
+        },
+        "scientific_limitation": "Results represent controlled software-simulation validation of the implemented prototype. They do not establish real-world cryptographic security, formal security proofs, or production-scale performance."
+      }
+    },
+    "t14": {
+      "status": 200,
+      "resp": {
+        "attack_summary": [
+          {
+            "attack": "Forgery Attack",
+            "mechanism": "Quantum-state / measurement deviation analysis",
+            "decision": "THREAT",
+            "controlled_result": "Detected (100.0% Detection Rate)",
+            "relevant_metric": "TPR: 100.00% | FNR: 0.00%",
+            "description": "State modification (|0\u27e9 \u2192 |1\u27e9) alters projective measurement distribution, triggering Chi-Square threshold alert."
+          },
+          {
+            "attack": "Impersonation Attack",
+            "mechanism": "Identity / sender verification",
+            "decision": "THREAT",
+            "controlled_result": "Rejected (Sender Mismatch)",
+            "relevant_metric": "Legitimate sender identity mismatch (Alice vs Attacker)",
+            "description": "Unauthorized sender claims Alice's key/identity. Verification identity layer rejects header credentials."
+          },
+          {
+            "attack": "Replay Attack",
+            "mechanism": "Nonce / signature SHA-256 hash tracking",
+            "decision": "THREAT",
+            "controlled_result": "Replay Detected (Duplicate Hash)",
+            "relevant_metric": "First use ALLOWED; subsequent submissions BLOCKED",
+            "description": "Previously observed signature session identifier is cached in session storage. Re-transmission triggers instant replay block."
+          },
+          {
+            "attack": "Channel Manipulation",
+            "mechanism": "Quantum-state deviation / projective measurement",
+            "decision": "THREAT",
+            "controlled_result": "Detected (100.0% Detection Rate)",
+            "relevant_metric": "Chi-Square > Threshold | TPR: 100.00%",
+            "description": "Pauli-Z/X noise in transit shifts measurement probability distribution away from theoretical expectation."
+          },
+          {
+            "attack": "Unauthorized Verification",
+            "mechanism": "Authorization gateway",
+            "decision": "BLOCKED",
+            "controlled_result": "Blocked (100.00% Auth Detection Rate)",
+            "relevant_metric": "Auth Detection: 100.00% | False Auth: 0.00%",
+            "description": "Unauthorized receiver (Eve) attempts signature access. Authorization gateway intercepts and blocks request prior to quantum processing."
+          }
+        ],
+        "metrics_summary": {
+          "TPR": 100.0,
+          "FNR": 0.0,
+          "FPR": 0.0,
+          "TNR": 100.0,
+          "TP": 4,
+          "TN": 4,
+          "FP": 0,
+          "FN": 0,
+          "authorization_detection_rate": 100.0,
+          "authorization_detection_rate_str": "100.00%",
+          "false_authorization_rate": 0.0,
+          "false_authorization_rate_str": "0.00%",
+          "full_pipeline_avg_ms": 14.15612766657432,
+          "full_pipeline_avg_ms_str": "14.156 ms",
+          "auth_gateway_avg_ms": 0.0008850001177052036,
+          "auth_gateway_avg_ms_str": "0.001 ms"
+        },
+        "security_flow": [
+          {
+            "step": "1. Incoming Verification",
+            "detail": "Header & Receiver Credentials Submitted"
+          },
+          {
+            "step": "2. Authorization Check",
+            "detail": "Check Verifier Authority (Bob = ALLOWED, Eve = BLOCKED)"
+          },
+          {
+            "step": "3. Quantum Verification",
+            "detail": "Prepare Statevector & Apply Transmission/Attack"
+          },
+          {
+            "step": "4. Projective Measurement",
+            "detail": "Sample bitstring counts in Z or X basis (shots=1000)"
+          },
+          {
+            "step": "5. Statistical Test",
+            "detail": "Calculate Error Rate & Chi-Square vs Theoretical Expected"
+          },
+          {
+            "step": "6. Threshold Engine Verdict",
+            "detail": "Compare Against Configured Thresholds -> VALID or THREAT"
+          }
+        ],
+        "scope": "Controlled Prototype Evaluation"
+      }
+    },
+    "t15": {
+      "status": 200,
+      "resp": {
+        "cases": [
+          {
+            "case_name": "Authorized / NONE",
+            "label": "CASE 1: Authorized + No Attack",
+            "path": "Full Pipeline",
+            "attempts": 50,
+            "shots": 1000,
+            "avg_time_ms": 13.60065000015311,
+            "avg_time_ms_str": "13.601 ms",
+            "min_time_ms": 12.104200002795551,
+            "min_time_ms_str": "12.104 ms",
+            "max_time_ms": 15.402199998789001,
+            "max_time_ms_str": "15.402 ms",
+            "total_time_ms": 680.0325000076555,
+            "total_time_ms_str": "680.03 ms",
+            "result": "VALID"
+          },
+          {
+            "case_name": "Forgery Attack",
+            "label": "CASE 2: Authorized + Forgery Attack",
+            "path": "Full Pipeline",
+            "attempts": 50,
+            "shots": 1000,
+            "avg_time_ms": 13.976368000730872,
+            "avg_time_ms_str": "13.976 ms",
+            "min_time_ms": 13.021800004935358,
+            "min_time_ms_str": "13.022 ms",
+            "max_time_ms": 16.71679999708431,
+            "max_time_ms_str": "16.717 ms",
+            "total_time_ms": 698.8184000365436,
+            "total_time_ms_str": "698.82 ms",
+            "result": "THREAT"
+          },
+          {
+            "case_name": "Channel Manipulation",
+            "label": "CASE 3: Authorized + Channel Manipulation",
+            "path": "Full Pipeline",
+            "attempts": 50,
+            "shots": 1000,
+            "avg_time_ms": 14.11381399972015,
+            "avg_time_ms_str": "14.114 ms",
+            "min_time_ms": 12.836599998991005,
+            "min_time_ms_str": "12.837 ms",
+            "max_time_ms": 16.53490000171587,
+            "max_time_ms_str": "16.535 ms",
+            "total_time_ms": 705.6906999860075,
+            "total_time_ms_str": "705.69 ms",
+            "result": "THREAT"
+          },
+          {
+            "case_name": "Unauthorized Access",
+            "label": "CASE 4: Unauthorized Verification Attempt",
+            "path": "Authorization Gateway",
+            "attempts": 50,
+            "shots": 1000,
+            "avg_time_ms": 0.0009640003554522991,
+            "avg_time_ms_str": "0.001 ms",
+            "min_time_ms": 0.0007999988156370819,
+            "min_time_ms_str": "0.001 ms",
+            "max_time_ms": 0.004199995601084083,
+            "max_time_ms_str": "0.004 ms",
+            "total_time_ms": 0.048200017772614956,
+            "total_time_ms_str": "0.05 ms",
+            "result": "BLOCKED"
+          }
+        ],
+        "summary": {
+          "total_attempts": 200,
+          "successful_verifications": 50,
+          "threat_verifications_blocked": 150,
+          "avg_time_ms": 10.422949000239896,
+          "avg_time_ms_str": "10.423 ms",
+          "min_time_ms": 0.0007999988156370819,
+          "min_time_ms_str": "0.001 ms",
+          "max_time_ms": 16.71679999708431,
+          "max_time_ms_str": "16.717 ms",
+          "total_time_ms": 2084.589800047979,
+          "total_time_ms_str": "2084.59 ms",
+          "total_time_sec_str": "2.085 s"
+        },
+        "full_pipeline_summary": {
+          "attempts": 150,
+          "avg_time_ms": 13.896944000201378,
+          "avg_time_ms_str": "13.897 ms",
+          "min_time_ms": 12.104200002795551,
+          "min_time_ms_str": "12.104 ms",
+          "max_time_ms": 16.71679999708431,
+          "max_time_ms_str": "16.717 ms",
+          "total_time_ms": 2084.5416000302066,
+          "total_time_ms_str": "2084.54 ms"
+        },
+        "auth_gateway_summary": {
+          "attempts": 50,
+          "avg_time_ms": 0.0009640003554522991,
+          "avg_time_ms_str": "0.001 ms",
+          "min_time_ms": 0.0007999988156370819,
+          "min_time_ms_str": "0.001 ms",
+          "max_time_ms": 0.004199995601084083,
+          "max_time_ms_str": "0.004 ms",
+          "total_time_ms": 0.048200017772614956,
+          "total_time_ms_str": "0.05 ms"
+        }
+      }
+    },
+    "t16": {
+      "status": 200,
+      "resp": {
+        "sih_objective_matrix": [
+          {
+            "objective": "Teleportation-based QDS framework",
+            "implementation": "3-qubit Qiskit teleportation circuit with Bell state |B00\u27e9 and Pauli X/Z corrections",
+            "evidence_metric": "Entanglement-assisted state vector transfer simulation",
+            "status": "SUPPORTED / DEMONSTRATED"
+          },
+          {
+            "objective": "Forgery detection",
+            "implementation": "State vector distance analysis & chi-square goodness-of-fit engine",
+            "evidence_metric": "4/4 forgery attack cases detected in controlled benchmark",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Impersonation detection",
+            "implementation": "Sender identity authorization gateway",
+            "evidence_metric": "1/1 unauthorized sender attempt blocked (100% detection)",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Replay detection",
+            "implementation": "Stateful signature nonce and session tracking registry",
+            "evidence_metric": "1/1 replay signature re-submission detected and rejected",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Unauthorized verification detection",
+            "implementation": "Verifier identity and access level gateway",
+            "evidence_metric": "1/1 unauthorized verifier attempt blocked before quantum pipeline",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Pauli eigenstates",
+            "implementation": "Preparation & measurement in X, Y, Z bases for |0\u27e9, |1\u27e9, |+\u27e9, |-\u27e9, |+i\u27e9, |-i\u27e9",
+            "evidence_metric": "6 Pauli eigenstate vector representations evaluated",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Quantum measurement analysis",
+            "implementation": "Projective measurement simulation and probability distribution calculation",
+            "evidence_metric": "Empirical measurement counts vs expected theoretical probabilities",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Statistical threshold methods",
+            "implementation": "Chi-square limit (\u03c7\u00b2 > 3.841) & empirical error rate thresholding",
+            "evidence_metric": "Evaluated across all attack types with controlled noise separation",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Efficient verification",
+            "implementation": "Lightweight quantum-inspired software verification pipeline",
+            "evidence_metric": "Average Full Verification Pipeline: ~12.8 ms per attempt",
+            "status": "SUPPORTED / DEMONSTRATED"
+          },
+          {
+            "objective": "Forgery probability analysis",
+            "implementation": "Analytical Pf = (3/4)^k formulation and statistical fidelity bounds",
+            "evidence_metric": "Quantitative forgery probability curve and state distance metrics",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Attack simulation",
+            "implementation": "Multi-vector threat simulator (Forgery, Impersonation, Replay, Channel)",
+            "evidence_metric": "8-case attack benchmark matrix & 6 end-to-end scenarios",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Mathematical modelling",
+            "implementation": "Formal mathematical decision model (E, Pf, \u03c7\u00b2 parameters)",
+            "evidence_metric": "Mathematical security decision model formalization (Task #9)",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "objective": "Security analysis",
+            "implementation": "Consolidated attack-wise security summary & confusion matrix",
+            "evidence_metric": "TPR: 100%, TNR: 100%, FNR: 0%, FPR: 0% in controlled benchmark",
+            "status": "SUPPORTED / DEMONSTRATED"
+          },
+          {
+            "objective": "Performance evaluation",
+            "implementation": "Runtime latency profiling (Full pipeline vs Authorization gateway)",
+            "evidence_metric": "Full Pipeline: ~12.8 ms; Auth Gateway: ~0.001 ms per attempt",
+            "status": "SUPPORTED / DEMONSTRATED"
+          }
+        ],
+        "expected_solution_coverage": [
+          {
+            "component": "Bell-state entanglement",
+            "implementation": "Qiskit 3-qubit circuit entanglement preparation |B00\u27e9",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Quantum teleportation",
+            "implementation": "Coherent quantum state transfer protocol simulation",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Pauli correction operations",
+            "implementation": "Dynamic Pauli X and Z correction gate application",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Projective measurements",
+            "implementation": "Pauli basis projective measurement simulation (X, Y, Z)",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Statistical evaluation",
+            "implementation": "Chi-square goodness-of-fit and error rate calculation",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Threshold-based decisions",
+            "implementation": "Statistical decision engine mapping to VALID vs THREAT",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Mathematical modelling",
+            "implementation": "Theoretical error and forgery probability decision equations",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Attack simulation",
+            "implementation": "Multi-attack vector generation (Forgery, Impersonation, Replay, Channel)",
+            "status": "IMPLEMENTED"
+          },
+          {
+            "component": "Security analysis",
+            "implementation": "Quantitative metrics, confusion matrix, and attack breakdown",
+            "status": "SUPPORTED / DEMONSTRATED"
+          },
+          {
+            "component": "Performance evaluation",
+            "implementation": "Controlled software execution latency profiling per attempt",
+            "status": "SUPPORTED / DEMONSTRATED"
+          }
+        ],
+        "experimental_evidence": {
+          "controlled_8case_benchmark": "4 attack cases detected out of 4 tested attack cases.",
+          "authorization_test": "1/1 unauthorized attempt blocked.",
+          "controlled_noise_experiment": "Controlled Noise Experiment: 14/15 cases correctly classified.",
+          "controlled_end_to_end_validation_rate": "Controlled End-to-End Validation Rate: 6/6 scenarios passed.",
+          "controlled_software_simulation_runtime": "Controlled software-simulation runtime: Average Full Verification Pipeline: approximately 13.9 ms per attempt; Authorization Gateway: approximately 0.001 ms per attempt.",
+          "raw_metrics": {
+            "benchmark_tpr": 100.0,
+            "benchmark_tnr": 100.0,
+            "auth_detection_rate": "100.00%",
+            "noise_classification": "14/15 cases correctly classified",
+            "e2e_validation_rate": "100.00%",
+            "full_pipeline_avg_ms": 13.910715333671154,
+            "auth_gateway_avg_ms": 0.0007580016972497106
+          }
+        },
+        "attack_coverage_matrix": [
+          {
+            "attack": "Forgery",
+            "detection_layer": "Statistical Threshold & State Vector Distance",
+            "decision": "THREAT",
+            "controlled_evidence": "4/4 forgery attack cases detected in controlled benchmark"
+          },
+          {
+            "attack": "Impersonation",
+            "detection_layer": "Identity Verification Gateway",
+            "decision": "THREAT",
+            "controlled_evidence": "1/1 impersonation attempt detected and rejected"
+          },
+          {
+            "attack": "Replay",
+            "detection_layer": "Replay Protection & Session Tracking Registry",
+            "decision": "THREAT",
+            "controlled_evidence": "1/1 replay signature attempt detected and blocked"
+          },
+          {
+            "attack": "Channel Manipulation",
+            "detection_layer": "Pauli Basis Projective Measurement & Chi-Square Engine",
+            "decision": "THREAT",
+            "controlled_evidence": "4/4 channel manipulation cases evaluated (detectable under orthogonal basis)"
+          },
+          {
+            "attack": "Unauthorized Verification",
+            "detection_layer": "Verifier Identity Authorization Gateway",
+            "decision": "BLOCKED",
+            "controlled_evidence": "1/1 unauthorized verifier attempt blocked prior to quantum stage"
+          }
+        ],
+        "security_model_architecture": "\nAlice\n  |\n  | Message + Signature\n  v\nAuthorization\n  |\n  +---- Unauthorized \u2192 BLOCK\n  |\n  v\nQuantum State\n  |\n  v\nTeleportation / Verification\n  |\n  v\nProjective Measurement\n  |\n  v\nStatistical Analysis\n  |\n  v\nThreshold Decision\n  |\n  +---- Normal \u2192 VALID\n  |\n  +---- Anomalous \u2192 THREAT\n",
+        "research_gaps_and_limitations": [
+          "Current evaluation is software simulation.",
+          "No real quantum hardware evaluation.",
+          "No formal cryptographic security proof.",
+          "Controlled test datasets are small.",
+          "Threshold values are prototype evaluation parameters.",
+          "No claim of universal real-world attack detection.",
+          "No production-scale deployment evaluation.",
+          "Information-theoretic security is not formally proven by this prototype."
+        ],
+        "prototype_contributions": [
+          "Quantum-inspired digital signature threat-detection prototype",
+          "Teleportation-based quantum component",
+          "Pauli eigenstate/projective measurement analysis",
+          "Multi-attack simulation",
+          "Statistical threshold engine",
+          "Authorization and replay protection layers",
+          "Mathematical security decision model",
+          "End-to-end controlled validation",
+          "Performance evaluation"
+        ]
+      }
+    },
+    "t17": {
+      "status": 200,
+      "resp": {
+        "formulas": {
+          "error_rate": "E = M / N",
+          "error_pct": "E% = (M / N) * 100",
+          "forgery_prob_estimate": "P_f = M / N",
+          "forgery_prob_pct": "P_f% = (M / N) * 100",
+          "chi_square": "chi^2 = sum((O_i - E_i)^2 / E_i)",
+          "measurement_decision_rule": "THREAT = error_threat OR chi_threat",
+          "authorization_decision_rule": "actual_verifier == expected_verifier -> AUTHORIZED else BLOCKED"
+        },
+        "parameters": {
+          "state": "|0\u27e9",
+          "basis": "Z",
+          "attack_type": "FORGERY",
+          "total_shots_N": 1000,
+          "mismatches_M": 1000,
+          "error_rate_E": 1.0,
+          "error_pct_E": 100.0,
+          "error_pct_str": "100.00%",
+          "forgery_prob_val": 100.0,
+          "forgery_prob_str": "100.00%",
+          "forgery_prob_label": "Simulation-Based Forgery Probability Estimate",
+          "chi_square_val": 11000.0,
+          "chi_square_str": "11000.00",
+          "error_threshold_pct": 10.0,
+          "chi_threshold": 10.0,
+          "error_threat": true,
+          "chi_threat": true,
+          "verdict": "THREAT"
+        },
+        "scope": "Controlled Prototype Mathematical Model"
+      }
+    }
+  }
+}

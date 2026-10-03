@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice / Sender System — Step 5: Bell State &amp; 3-Qubit Teleportation | Q-SHIELD SIH26141</title>
+    <meta name="description" content="Alice Legitimate Sender System - Step 5: Bell State & 3-Qubit Teleportation Layer (SIH26141 - Team Qubits)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ==================== BACKGROUND LAYER ==================== -->
+<div class="bg-layer" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+</div>
+
+<!-- ==================== TOP HEADER ==================== -->
+<header class="top-header">
+    <div class="th-left">
+        <div class="th-logo">
+            <span class="logo-atom">⚛</span>
+        </div>
+        <div class="th-brand">
+            <h1 class="th-title">Q-SHIELD &bull; ALICE SENDER</h1>
+            <p class="th-sub">Legitimate Sender System &mdash; Quantum State-Transfer Layer</p>
+        </div>
+        <div class="th-sih-pill">SIH 2026 &bull; SIH26141</div>
+    </div>
+    <div class="th-center">
+        <span class="th-tech">STEP 5: BELL STATE &amp; 3-QUBIT QUANTUM TELEPORTATION</span>
+    </div>
+    <div class="th-right">
+        <div class="sys-status">
+            <span class="sys-dot"></span>
+            <div class="sys-text">
+                <div class="sys-label">SENDER NODE</div>
+                <div class="sys-online">ONLINE</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ==================== APP LAYOUT ==================== -->
+<div class="app-layout">
+
+    <!-- ===== LEFT SIDEBAR ===== -->
+    <aside class="sidebar">
+        <nav class="sb-nav">
+            <a class="sb-item active" href="alice.html" id="sb-alice">
+                <span class="sb-icon">👩‍💻</span>
+                <span class="sb-label">Alice (Sender)</span>
+            </a>
+            <a class="sb-item" href="index.html" id="sb-dashboard">
+                <span class="sb-icon">⊞</span>
+                <span class="sb-label">SOC Dashboard</span>
+            </a>
+        </nav>
+
+        <div class="sb-bottom">
+            <div class="sb-info-card">
+                <div class="sb-info-atom">⚛</div>
+                <p class="sb-info-text">System 1 of 3<br><strong>ALICE</strong> (Sender)<br>Step 5: Teleportation Active</p>
+            </div>
+            <div class="sb-attack-chip">
+                <span class="sb-atk-icon">✓</span>
+                <span id="sidebar-quantum-label">Teleportation Verified</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- ============================================================
+             SECTION A: ALICE / SENDER HEADER
+             ============================================================ -->
+        <section class="qpanel alice-header-panel">
+            <div class="alice-header-container">
+                <div class="alice-avatar-badge">
+                    <div class="node-ring ring-alice">
+                        <div class="node-inner">
+                            <div class="node-avatar">👩‍💻</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alice-title-group">
+                    <div class="alice-tag-row">
+                        <span class="node-chip chip-green"><span class="chip-dot green-dot"></span>AUTHENTICATED SENDER</span>
+                        <span class="node-tag">Node: ALICE-TX-01</span>
+                        <span class="node-tag">Engine: Qiskit Statevector</span>
+                        <span id="alice-key-tag" class="node-tag code-font">Key: ALICE-PUB-ECDSA</span>
+                    </div>
+                    <h2 class="alice-main-title">ALICE</h2>
+                    <p class="alice-main-subtitle">LEGITIMATE SENDER &bull; TRANSACTION CREATOR &amp; QUANTUM PREPARER</p>
+                </div>
+                <div class="alice-header-stats">
+                    <div class="alice-stat-box">
+                        <span class="stat-box-label">TRANSACTIONS</span>
+                        <span id="session-tx-count" class="stat-box-val">0</span>
+                    </div>
+                    <div class="alice-stat-box">
+                        <span class="stat-box-label">QUANTUM BACKEND</span>
+                        <span class="stat-box-val text-cyan">QISKIT 2.5</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VALIDATION ALERT CONTAINER (Dynamic)
+             ============================================================ -->
+        <div id="validation-alert" class="validation-alert hidden" role="alert">
+            <span class="alert-icon">⚠</span>
+            <span id="validation-alert-msg" class="alert-text">Validation error message</span>
+            <button type="button" class="alert-close" id="alert-close-btn" aria-label="Dismiss">&times;</button>
+        </div>
+
+        <!-- ============================================================
+             TWO-COLUMN WORKSPACE: CREATOR (LEFT) + PREVIEW & QUANTUM (RIGHT)
+             ============================================================ -->
+        <div class="alice-grid">
+
+            <!-- COLUMN 1: SECTION B — TRANSACTION CREATOR & QUANTUM PREPARER CARD -->
+            <section class="qpanel alice-creator-card">
+                <div class="panel-header-row">
+                    <h3 class="panel-sec-title">&#9646; TRANSACTION &amp; QUANTUM PREPARER</h3>
+                    <span class="step-badge">STEP 1 &rarr; 2 &rarr; 3 &rarr; 4</span>
+                </div>
+
+                <form id="transaction-form" class="alice-form" onsubmit="return false;">
+                    
+                    <!-- 1. Transaction ID -->
+                    <div class="form-group">
+                        <div class="form-label-row">
+                            <label for="tx-id-input" class="form-label">1. TRANSACTION ID</label>
+                            <span class="form-hint">Auto-generated unique ID</span>
+                        </div>
+                        <div class="input-with-action">
+                            <input 
+                                type="text" 
+                                id="tx-id-input" 
+                                class="form-input code-font" 
+                                placeholder="TX-2026-0001" 
+                                autocomplete="off"
+                            >
+                            <button type="button" id="btn-refresh-id" class="btn-input-action" title="Generate New ID">
+                                ↻ New ID
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Message / Transaction Data -->
+                    <div class="form-group">
+                        <div class="form-label-row">
+                            <label for="tx-message-input" class="form-label">2. MESSAGE / TRANSACTION DATA <span class="required-star">*</span></label>
+                            <span id="char-count" class="form-hint">0 chars</span>
+                        </div>
+                        <textarea 
+                            id="tx-message-input" 
+                            class="form-textarea" 
+                            rows="3" 
+                            placeholder="Enter transaction payload (e.g., Transfer request: INR 5000)..."
+                            required
+                        ></textarea>
+                        
+                        <!-- Quick Presets -->
+                        <div class="quick-presets">
+                            <span class="preset-label">Presets:</span>
+                            <button type="button" class="preset-btn" data-preset="Transfer request: INR 5000">INR 5,000</button>
+                            <button type="button" class="preset-btn" data-preset="Authorize Quantum Key Exchange Session #99">Key Session #99</button>
+                            <button type="button" class="preset-btn" data-preset="Smart Contract Execution Payload 0x7F2B">Payload 0x7F2B</button>
+                        </div>
+
+                        <!-- Live Message Hash Preview -->
+                        <div class="live-hash-preview">
+                            <div class="live-hash-label">LIVE SHA-256 HASH COMPUTATION:</div>
+                            <div id="live-hash-display" class="live-hash-val code-font">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
+                        </div>
+                    </div>
+
+                    <!-- 3. QUANTUM STATE SELECTION (STEP 3) -->
+                    <div class="form-group">
+                        <div class="form-label-row">
+                            <label class="form-label">3. QUANTUM STATE SELECTION</label>
+                            <span class="form-hint text-cyan">Single-Qubit State</span>
+                        </div>
+                        <div class="quantum-state-selector" id="state-selector-strip">
+                            <button type="button" class="qstate-opt active" data-state="0">
+                                <span class="qstate-sym">|0⟩</span>
+                                <span class="qstate-basis">Z-Basis</span>
+                            </button>
+                            <button type="button" class="qstate-opt" data-state="1">
+                                <span class="qstate-sym">|1⟩</span>
+                                <span class="qstate-basis">Z-Basis</span>
+                            </button>
+                            <button type="button" class="qstate-opt" data-state="+">
+                                <span class="qstate-sym">|+⟩</span>
+                                <span class="qstate-basis">X-Basis</span>
+                            </button>
+                            <button type="button" class="qstate-opt" data-state="-">
+                                <span class="qstate-sym">|−⟩</span>
+                                <span class="qstate-basis">X-Basis</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Sender & Receiver (Fixed) -->
+                    <div class="form-row-duo">
+                        <div class="form-group flex-1">
+                            <div class="form-label-row">
+                                <label for="tx-sender-input" class="form-label">4. SENDER</label>
+                            </div>
+                            <input type="text" id="tx-sender-input" class="form-input input-locked" value="Alice" readonly>
+                        </div>
+                        <div class="form-group flex-1">
+                            <div class="form-label-row">
+                                <label for="tx-receiver-input" class="form-label">5. RECEIVER</label>
+                            </div>
+                            <input type="text" id="tx-receiver-input" class="form-input input-locked" value="Bob" readonly>
+                        </div>
+                    </div>
+
+                    <!-- 6. Timestamp -->
+                    <div class="form-group">
+                        <div class="timestamp-preview-box">
+                            <span class="ts-clock-icon">⏱</span>
+                            <span id="live-timestamp-display" class="code-font">Auto UTC Clock Initializing...</span>
+                        </div>
+                    </div>
+
+                    <!-- CREATE, SIGN & PREPARE BUTTON -->
+                    <div class="form-actions">
+                        <button type="button" id="btn-create-tx" class="btn-create-tx">
+                            <span class="btn-icon">⚡</span>
+                            <span>CREATE, SIGN &amp; PREPARE QUANTUM STATE</span>
+                        </button>
+                        <button type="button" id="btn-clear-form" class="btn-ghost-secondary">
+                            Reset
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- COLUMN 2: PREVIEW + CRYPTOGRAPHIC IDENTITY + QUANTUM PANEL -->
+            <div class="alice-right-column">
+
+                <!-- MAIN PREVIEW PANEL -->
+                <section class="qpanel alice-preview-card">
+                    <div class="panel-header-row">
+                        <h3 class="panel-sec-title">&#9646; TRANSACTION &amp; QUANTUM STATE RECORD</h3>
+                        <span id="preview-status-pill" class="status-pill status-awaiting">AWAITING CREATION</span>
+                    </div>
+
+                    <!-- Empty State Placeholder -->
+                    <div id="preview-empty-state" class="preview-empty">
+                        <div class="empty-icon">⚛</div>
+                        <h4 class="empty-title">No Transaction Prepared Yet</h4>
+                        <p class="empty-text">Select a quantum state, enter a message, and click <strong>CREATE, SIGN &amp; PREPARE QUANTUM STATE</strong>.</p>
+                    </div>
+
+                    <!-- Active Transaction Preview Container -->
+                    <div id="preview-content-box" class="preview-content hidden">
+                        <div class="preview-banner">
+                            <div class="banner-icon">✓</div>
+                            <div class="banner-text">
+                                <h4 class="banner-title">TRANSACTION SIGNED &amp; QUANTUM STATE PREPARED</h4>
+                                <p class="banner-subtitle">SHA-256 bound, ECDSA signed &amp; Qiskit single-qubit statevector verified</p>
+                            </div>
+                        </div>
+
+                        <!-- Structured Summary Grid -->
+                        <div class="tx-summary-grid">
+                            <div class="summary-item">
+                                <span class="summary-label">TRANSACTION ID</span>
+                                <span id="pv-tx-id" class="summary-val code-font text-cyan">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">PREPARATION STATUS</span>
+                                <span id="pv-status" class="summary-val text-green font-bold">PREPARED</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">ROUTE</span>
+                                <span id="pv-route" class="summary-val">Alice &rarr; Bob</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">TIMESTAMP (UTC)</span>
+                                <span id="pv-timestamp" class="summary-val code-font">—</span>
+                            </div>
+                            <div class="summary-item summary-item-full">
+                                <span class="summary-label">TRANSACTION MESSAGE</span>
+                                <div id="pv-message" class="summary-msg-box">—</div>
+                            </div>
+                        </div>
+
+                        <!-- ============================================================
+                             SECTION 1: QUANTUM STATE PREPARATION & VERIFICATION (Step 3)
+                             ============================================================ -->
+                        <div class="quantum-prep-panel">
+                            <div class="crypto-sec-header">
+                                <span class="crypto-sec-icon">⚛</span>
+                                <h4 class="crypto-sec-title">QUANTUM STATE PREPARATION &amp; STATEVECTOR</h4>
+                                <span id="pv-q-badge" class="badge-quantum-active">✓ STATE VERIFIED</span>
+                            </div>
+
+                            <!-- Visual State Banner -->
+                            <div class="qstate-hero-card">
+                                <div class="qstate-symbol-hero">
+                                    <span id="pv-qstate-symbol" class="qsym-large">|+⟩</span>
+                                </div>
+                                <div class="qstate-details-hero">
+                                    <div class="qhero-row">
+                                        <span class="qhero-label">STATE NAME:</span>
+                                        <span id="pv-qstate-name" class="qhero-val font-bold text-cyan">PLUS STATE</span>
+                                    </div>
+                                    <div class="qhero-row">
+                                        <span class="qhero-label">NATURAL BASIS:</span>
+                                        <span id="pv-qstate-basis" class="qhero-val text-vio font-bold">X-BASIS (Superposition)</span>
+                                    </div>
+                                    <div class="qhero-row">
+                                        <span class="qhero-label">PREPARATION GATES:</span>
+                                        <span id="pv-qstate-gates" class="qhero-val code-font text-green">[ H ]</span>
+                                    </div>
+                                    <div class="qhero-row">
+                                        <span class="qhero-label">VERIFICATION:</span>
+                                        <span id="pv-qstate-verif" class="qhero-val text-green font-bold">✓ Mathematical Fidelity = 1.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quantum Circuit Visual (Qiskit ASCII) -->
+                            <div class="qcircuit-box">
+                                <div class="qcircuit-header">
+                                    <span class="qcircuit-title">QISKIT QUANTUM CIRCUIT</span>
+                                    <span class="qcircuit-backend">Qiskit 2.5 Statevector Simulator</span>
+                                </div>
+                                <pre id="pv-qcircuit-diagram" class="qcircuit-pre">q_0: ───[ H ]───</pre>
+                            </div>
+
+                            <!-- Statevector & Measurement Probabilities Grid -->
+                            <div class="statevector-grid">
+                                <div class="sv-card">
+                                    <span class="sv-card-label">STATEVECTOR AMPLITUDES |ψ⟩</span>
+                                    <div id="pv-statevector-box" class="sv-val-list code-font">
+                                        <div class="sv-amp-item">|0⟩: 0.7071 + 0.0000j</div>
+                                        <div class="sv-amp-item">|1⟩: 0.7071 + 0.0000j</div>
+                                    </div>
+                                </div>
+                                <div class="sv-card">
+                                    <span class="sv-card-label">MEASUREMENT PROBABILITIES</span>
+                                    <div class="prob-bars-container">
+                                        <div class="prob-row">
+                                            <span class="prob-label code-font">P(|0⟩):</span>
+                                            <div class="prob-bar-track">
+                                                <div id="prob-bar-0" class="prob-bar-fill prob-fill-cyan" style="width: 50%;"></div>
+                                            </div>
+                                            <span id="prob-val-0" class="prob-pct code-font">50.0%</span>
+                                        </div>
+                                        <div class="prob-row">
+                                            <span class="prob-label code-font">P(|1⟩):</span>
+                                            <div class="prob-bar-track">
+                                                <div id="prob-bar-1" class="prob-bar-fill prob-fill-vio" style="width: 50%;"></div>
+                                            </div>
+                                            <span id="prob-val-1" class="prob-pct code-font">50.0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /quantum-prep-panel -->
+
+                        <!-- ============================================================
+                             SECTION 2: CRYPTOGRAPHIC IDENTITY SECTION (Step 2)
+                             ============================================================ -->
+                        <div class="crypto-identity-section">
+                            <div class="crypto-sec-header">
+                                <span class="crypto-sec-icon">🛡</span>
+                                <h4 class="crypto-sec-title">CRYPTOGRAPHIC IDENTITY &amp; SIGNATURE</h4>
+                            </div>
+
+                            <!-- 1. Message Hash (SHA-256) -->
+                            <div class="crypto-field-block">
+                                <div class="crypto-field-header">
+                                    <span class="crypto-field-label">MESSAGE HASH (SHA-256)</span>
+                                    <button type="button" class="btn-copy-mini" id="btn-copy-hash" title="Copy Hash">📋 Copy</button>
+                                </div>
+                                <div id="pv-hash" class="crypto-field-val code-font hash-val-highlight">—</div>
+                            </div>
+
+                            <!-- 2. Digital Signature -->
+                            <div class="crypto-field-block">
+                                <div class="crypto-field-header">
+                                    <span class="crypto-field-label">DIGITAL SIGNATURE (ECDSA DER HEX)</span>
+                                    <button type="button" class="btn-copy-mini" id="btn-copy-sig" title="Copy Signature">📋 Copy</button>
+                                </div>
+                                <div id="pv-sig" class="crypto-field-val code-font sig-val-highlight">—</div>
+                            </div>
+
+                            <!-- 3. Algorithm & Public Key Grid -->
+                            <div class="crypto-meta-grid">
+                                <div class="crypto-meta-item">
+                                    <span class="crypto-meta-label">SIGNATURE ALGORITHM</span>
+                                    <span id="pv-algorithm" class="crypto-meta-val code-font text-cyan">ECDSA-SHA256 (SECP256R1)</span>
+                                </div>
+                                <div class="crypto-meta-item">
+                                    <span class="crypto-meta-label">PUBLIC KEY FINGERPRINT</span>
+                                    <span id="pv-pubkey" class="crypto-meta-val code-font text-vio">—</span>
+                                </div>
+                            </div>
+
+                            <!-- Security Boundary Badge -->
+                            <div class="security-boundary-note">
+                                <span class="sec-icon">🔒</span>
+                                <span><strong>Private Key Protection:</strong> Alice's private signing key is securely isolated in backend memory and never exposed in the UI or transmitted payloads.</span>
+                            </div>
+                        </div><!-- /crypto-identity-section -->
+
+                        <!-- ============================================================
+                             SECTION 3: QUANTUM TRANSMISSION PACKET (Step 4)
+                             ============================================================ -->
+                        <div class="quantum-transmission-card" id="quantum-transmission-section">
+                            <div class="crypto-sec-header">
+                                <span class="crypto-sec-icon">📡</span>
+                                <h4 class="crypto-sec-title">QUANTUM TRANSMISSION PACKET</h4>
+                                <span id="pv-tx-packet-badge" class="badge-transmission-ready">● READY TO SEND</span>
+                            </div>
+
+                            <!-- Glowing Cyber HUD Packet Card (Ascii Spec Layout) -->
+                            <div class="qpacket-hud-card">
+                                <div class="qpacket-top-bar">
+                                    <div class="qpacket-tag">
+                                        <span class="qpacket-icon">📦</span>
+                                        <span class="qpacket-title">QUANTUM TRANSMISSION PACKET</span>
+                                    </div>
+                                    <div class="qpacket-id-box">
+                                        <span class="qpacket-id-label">PACKET ID:</span>
+                                        <span id="pkt-tx-id" class="code-font text-cyan font-bold">—</span>
+                                    </div>
+                                </div>
+
+                                <!-- Transmission Route Line -->
+                                <div class="qpacket-route-banner">
+                                    <div class="route-node route-alice">
+                                        <span class="node-dot dot-cyan"></span>
+                                        <span class="node-name">ALICE (Sender)</span>
+                                    </div>
+                                    <div class="route-beam-container">
+                                        <div class="route-beam-line"></div>
+                                        <div class="route-beam-pulse"></div>
+                                        <span class="route-arrow">───────────────→</span>
+                                    </div>
+                                    <div class="route-node route-bob">
+                                        <span class="node-dot dot-purple"></span>
+                                        <span class="node-name">BOB (Quantum Egress)</span>
+                                    </div>
+                                </div>
+
+                                <!-- Key Attributes Grid -->
+                                <div class="qpacket-grid">
+                                    <div class="qpacket-item">
+                                        <span class="qpacket-key">STATE:</span>
+                                        <span id="pkt-state" class="qpacket-val code-font text-cyan font-bold">|+⟩</span>
+                                    </div>
+                                    <div class="qpacket-item">
+                                        <span class="qpacket-key">BASIS:</span>
+                                        <span id="pkt-basis" class="qpacket-val code-font text-vio font-bold">X-BASIS</span>
+                                    </div>
+                                    <div class="qpacket-item">
+                                        <span class="qpacket-key">GATE(S):</span>
+                                        <span id="pkt-gate" class="qpacket-val code-font text-green">[ H ]</span>
+                                    </div>
+                                    <div class="qpacket-item">
+                                        <span class="qpacket-key">SIGNATURE:</span>
+                                        <span id="pkt-sig" class="qpacket-val text-green font-bold">✓ VERIFIED</span>
+                                    </div>
+                                    <div class="qpacket-item">
+                                        <span class="qpacket-key">HASH:</span>
+                                        <span id="pkt-hash" class="qpacket-val text-green font-bold">✓ VERIFIED</span>
+                                    </div>
+                                    <div class="qpacket-item">
+                                        <span class="qpacket-key">STATEVECTOR:</span>
+                                        <span id="pkt-statevector" class="qpacket-val text-green font-bold">✓ VERIFIED</span>
+                                    </div>
+                                </div>
+
+                                <!-- Packet Status Footer -->
+                                <div class="qpacket-footer">
+                                    <div class="pkt-status-row">
+                                        <span class="pkt-status-label">STATUS:</span>
+                                        <span id="pkt-status" class="pkt-status-val">READY TO SEND</span>
+                                    </div>
+                                    <button type="button" class="btn-copy-mini" id="btn-copy-packet" title="Copy Transmission Packet JSON">
+                                        📋 Copy Packet JSON
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /quantum-transmission-card -->
+
+                        <!-- ============================================================
+                             SECTION 4: QUANTUM TELEPORTATION ENGINE (Step 5)
+                             ============================================================ -->
+                        <div class="quantum-teleportation-card" id="quantum-teleportation-section">
+                            <div class="crypto-sec-header">
+                                <span class="crypto-sec-icon">🌀</span>
+                                <h4 class="crypto-sec-title">QUANTUM TELEPORTATION ENGINE</h4>
+                                <span id="pv-teleport-badge" class="badge-teleport-verified">● 3-QUBIT PROTOTYPE VERIFIED</span>
+                            </div>
+
+                            <!-- Teleportation Overview Subtitle & Safety -->
+                            <div class="qteleport-sub-bar">
+                                <span class="qteleport-type-tag">3-Qubit Teleportation / State-Transfer Prototype</span>
+                                <span class="qteleport-fidelity-pill" id="pv-teleport-fidelity-pill">Fidelity: 1.000000</span>
+                            </div>
+
+                            <!-- Visual Step Flow Architecture Diagram -->
+                            <div class="qteleport-flow-diagram">
+                                <div class="qtf-node">
+                                    <div class="qtf-box qtf-input">
+                                        <span class="qtf-label">INPUT STATE</span>
+                                        <span class="qtf-val" id="qtf-in-state">|+⟩</span>
+                                    </div>
+                                </div>
+                                <div class="qtf-arrow">▼</div>
+                                <div class="qtf-node">
+                                    <div class="qtf-box qtf-bell">
+                                        <span class="qtf-label">BELL ENTANGLEMENT</span>
+                                        <span class="qtf-val">|Φ+⟩ = (|00⟩+|11⟩)/√2</span>
+                                    </div>
+                                </div>
+                                <div class="qtf-arrow">▼</div>
+                                <div class="qtf-node">
+                                    <div class="qtf-box qtf-meas">
+                                        <span class="qtf-label">BELL MEASUREMENT</span>
+                                        <span class="qtf-val">2 BITS (m0, m1)</span>
+                                    </div>
+                                </div>
+                                <div class="qtf-arrow">▼</div>
+                                <div class="qtf-node">
+                                    <div class="qtf-box qtf-corr">
+                                        <span class="qtf-label">PAULI CORRECTION</span>
+                                        <span class="qtf-val">X / Z Feedforward</span>
+                                    </div>
+                                </div>
+                                <div class="qtf-arrow">▼</div>
+                                <div class="qtf-node">
+                                    <div class="qtf-box qtf-rec">
+                                        <span class="qtf-label">RECEIVER STATE</span>
+                                        <span class="qtf-val" id="qtf-out-state">|+⟩</span>
+                                    </div>
+                                </div>
+                                <div class="qtf-arrow">▼</div>
+                                <div class="qtf-node">
+                                    <div class="qtf-box qtf-verif">
+                                        <span class="qtf-label">STATUS</span>
+                                        <span class="qtf-val text-green font-bold">TELEPORTATION VERIFIED</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Qiskit 3-Qubit Teleportation Circuit Box -->
+                            <div class="qcircuit-box qteleport-circuit-box">
+                                <div class="qcircuit-header">
+                                    <span class="qcircuit-title">QISKIT 3-QUBIT TELEPORTATION CIRCUIT</span>
+                                    <span class="qcircuit-backend">Qiskit 2.5 Dynamic Feedforward Simulation</span>
+                                </div>
+                                <pre id="pv-teleport-circuit" class="qcircuit-pre">q_0: ───[ H ]──────■───[ H ]───────────────
+                   │
+q_1: ───[ H ]──■───X────────■──────────────
+               │            │
+q_2: ──────────X────────────X────■─────────
+                                 │
+                                [ Z ]</pre>
+                            </div>
+
+                            <!-- Teleportation Attributes Matrix -->
+                            <div class="qteleport-matrix-grid">
+                                <div class="qtm-item">
+                                    <span class="qtm-label">INPUT QUANTUM STATE (q0)</span>
+                                    <span id="pv-tel-input" class="qtm-val code-font text-cyan font-bold">|+⟩</span>
+                                </div>
+                                <div class="qtm-item">
+                                    <span class="qtm-label">BELL PAIR STATE (q1, q2)</span>
+                                    <span id="pv-tel-bell" class="qtm-val code-font text-green font-bold">|Φ+⟩</span>
+                                </div>
+                                <div class="qtm-item">
+                                    <span class="qtm-label">MEASUREMENT BITS</span>
+                                    <span id="pv-tel-meas" class="qtm-val code-font text-vio font-bold">2 Classical Bits (m0, m1)</span>
+                                </div>
+                                <div class="qtm-item">
+                                    <span class="qtm-label">PAULI CORRECTION FEEDFORWARD</span>
+                                    <span id="pv-tel-corr" class="qtm-val code-font text-amber font-bold">X (controlled by q1) &amp; Z (controlled by q0)</span>
+                                </div>
+                                <div class="qtm-item">
+                                    <span class="qtm-label">RECEIVER RECONSTRUCTED STATE (q2)</span>
+                                    <span id="pv-tel-receiver" class="qtm-val code-font text-cyan font-bold">|+⟩</span>
+                                </div>
+                                <div class="qtm-item">
+                                    <span class="qtm-label">STATE FIDELITY &amp; VERIFICATION</span>
+                                    <span id="pv-tel-fidelity" class="qtm-val text-green font-bold">✓ 1.000000 (TELEPORTATION_VERIFIED)</span>
+                                </div>
+                            </div>
+
+                            <!-- 4-Branch Classical Measurement Correction Table -->
+                            <div class="qteleport-branches-panel">
+                                <div class="branches-header">
+                                    <span class="branches-title">4-BRANCH MEASUREMENT &amp; CORRECTION RESOLUTION TABLE</span>
+                                    <span class="branches-sub">Each classical branch occurs with probability 25%</span>
+                                </div>
+                                <table class="branches-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Branch Bits (m0 m1)</th>
+                                            <th>Probability</th>
+                                            <th>Correction Applied (q2)</th>
+                                            <th>Receiver State</th>
+                                            <th>Verification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="teleport-branches-tbody">
+                                        <tr>
+                                            <td><span class="code-font text-cyan">00</span></td>
+                                            <td>25.0%</td>
+                                            <td>I (Identity / No Correction)</td>
+                                            <td><span class="code-font text-green" id="br-state-00">|+⟩</span></td>
+                                            <td><span class="text-green">✓ Fidelity 1.0</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="code-font text-cyan">01</span></td>
+                                            <td>25.0%</td>
+                                            <td>X Gate (Bit Flip Correction)</td>
+                                            <td><span class="code-font text-green" id="br-state-01">|+⟩</span></td>
+                                            <td><span class="text-green">✓ Fidelity 1.0</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="code-font text-cyan">10</span></td>
+                                            <td>25.0%</td>
+                                            <td>Z Gate (Phase Flip Correction)</td>
+                                            <td><span class="code-font text-green" id="br-state-10">|+⟩</span></td>
+                                            <td><span class="text-green">✓ Fidelity 1.0</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="code-font text-cyan">11</span></td>
+                                            <td>25.0%</td>
+                                            <td>X + Z Gates (Bit &amp; Phase Flip)</td>
+                                            <td><span class="code-font text-green" id="br-state-11">|+⟩</span></td>
+                                            <td><span class="text-green">✓ Fidelity 1.0</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Scientific Safety & Boundary Clarification -->
+                            <div class="security-boundary-note teleport-boundary-note">
+                                <span class="sec-icon">🔬</span>
+                                <span><strong>Quantum State-Transfer Layer:</strong> 3-qubit teleportation simulates exact quantum state transfer over entangled channels using classical feedforward corrections. Classical digital signature security is preserved separately by ECDSA + SHA-256.</span>
+                            </div>
+
+                        </div><!-- /quantum-teleportation-card -->
+
+                        <!-- JSON Object Viewer -->
+                        <div class="json-viewer-box">
+                            <div class="json-header">
+                                <span class="json-title">STRUCTURED TRANSACTION &amp; QUANTUM RECORD JSON</span>
+                                <button type="button" id="btn-copy-json" class="btn-copy">
+                                    📋 Copy JSON
+                                </button>
+                            </div>
+                            <pre id="pv-json-display" class="json-code">{}</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION D: STEP 5 WORKFLOW PROGRESSION -->
+                <section class="qpanel alice-flow-card">
+                    <div class="panel-header-row">
+                        <h3 class="panel-sec-title">&#9646; WORKFLOW PROGRESSION</h3>
+                        <span class="flow-pill">STEP 5 OF 6 ROADMAP</span>
+                    </div>
+
+                    <div class="flow-diagram-container">
+                        <!-- Step 1 -->
+                        <div class="flow-step step-completed" id="flow-step-1">
+                            <div class="flow-step-icon">1</div>
+                            <div class="flow-step-body">
+                                <div class="flow-step-name">STEP 1 — TRANSACTION CREATED</div>
+                                <div class="flow-step-desc">Payload &amp; unique ID generated</div>
+                            </div>
+                            <span class="flow-step-status text-green">&#10003; Done</span>
+                        </div>
+
+                        <div class="flow-connector active">
+                            <div class="flow-arrow">&darr;</div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flow-step step-completed" id="flow-step-2">
+                            <div class="flow-step-icon">2</div>
+                            <div class="flow-step-body">
+                                <div class="flow-step-name">STEP 2 — SIGNED</div>
+                                <div class="flow-step-desc">SHA-256 hashed &amp; ECDSA signed</div>
+                            </div>
+                            <span class="flow-step-status text-green">&#10003; Done</span>
+                        </div>
+
+                        <div class="flow-connector active">
+                            <div class="flow-arrow">&darr;</div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flow-step step-completed" id="flow-step-3">
+                            <div class="flow-step-icon">3</div>
+                            <div class="flow-step-body">
+                                <div class="flow-step-name">STEP 3 — QUANTUM PREPARED</div>
+                                <div class="flow-step-desc">Qiskit single-qubit statevector verified</div>
+                            </div>
+                            <span class="flow-step-status text-green">&#10003; Done</span>
+                        </div>
+
+                        <div class="flow-connector active">
+                            <div class="flow-arrow">&darr;</div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="flow-step step-completed" id="flow-step-4">
+                            <div class="flow-step-icon">4</div>
+                            <div class="flow-step-body">
+                                <div class="flow-step-name">STEP 4 — TRANSMISSION PACKET</div>
+                                <div class="flow-step-desc" id="flow-step-4-desc">Structured egress packet assembled &amp; staged</div>
+                            </div>
+                            <span class="flow-step-status text-green">&#10003; Done</span>
+                        </div>
+
+                        <div class="flow-connector active">
+                            <div class="flow-arrow">&darr;</div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="flow-step step-active" id="flow-step-5">
+                            <div class="flow-step-icon">5</div>
+                            <div class="flow-step-body">
+                                <div class="flow-step-name">STEP 5 — BELL STATE &amp; 3-QUBIT TELEPORTATION</div>
+                                <div class="flow-step-desc" id="flow-step-5-desc">Bell pair |Φ+⟩ entangled &amp; 3-qubit state transfer simulated</div>
+                            </div>
+                            <span class="flow-step-status text-cyan font-bold" id="flow-step-5-badge">● TELEPORTED</span>
+                        </div>
+
+                        <div class="flow-connector">
+                            <div class="flow-arrow">&darr;</div>
+                        </div>
+
+                        <!-- Step 6 -->
+                        <div class="flow-step step-future" id="flow-step-6">
+                            <div class="flow-step-icon">6</div>
+                            <div class="flow-step-body">
+                                <div class="flow-step-name">STEP 6 — EVE / BOB PROCESSING</div>
+                                <div class="flow-step-desc">Threat detection, measurement &amp; verification</div>
+                            </div>
+                            <span class="flow-step-status text-muted">○ Future Step</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-note">
+                        <span class="note-icon">ℹ</span>
+                        <span><strong>Architecture Boundary:</strong> Step 5 completes Alice's Bell State &amp; 3-Qubit Quantum Teleportation layer. Eve adversary interception and Bob SOC threat detection are reserved for subsequent pipeline stages.</span>
+                    </div>
+                </section>
+
+            </div><!-- /alice-right-column -->
+
+        </div><!-- /alice-grid -->
+
+        <!-- ============================================================
+             SECTION E: SESSION TRANSACTION HISTORY TABLE
+             ============================================================ -->
+        <section class="qpanel alice-history-card">
+            <div class="panel-header-row">
+                <div class="history-title-wrap">
+                    <h3 class="panel-sec-title">&#9646; SESSION TRANSACTION HISTORY</h3>
+                    <span class="history-sub">Transactions created, signed, quantum-prepared &amp; packetized during this session</span>
+                </div>
+                <div class="history-actions">
+                    <button type="button" id="btn-reset-session" class="btn-ghost-danger">
+                        ↻ Reset Session
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table" id="alice-history-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Transaction ID</th>
+                            <th>Message</th>
+                            <th>State</th>
+                            <th>Basis</th>
+                            <th>SHA-256 Hash</th>
+                            <th>Timestamp</th>
+                            <th>Transmission</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alice-history-tbody">
+                        <tr id="history-empty-row">
+                            <td colspan="9" class="text-muted text-center">No transactions created in this session yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main><!-- /main-content -->
+
+</div><!-- /app-layout -->
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+    <span>SIH 2026 &bull; Problem Statement SIH26141 &bull; Team Qubits &bull; Alice Legitimate Sender System &bull; Step 4: Transmission Preparation</span>
+</footer>
+
+<script src="alice.js"></script>
+</body>
+</html>

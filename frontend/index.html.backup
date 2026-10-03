@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Cyber Threat Detection Dashboard | SIH26141</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="brand-container">
+            <div class="logo-icon">⚛</div>
+            <div class="brand-text">
+                <h1>QUANTUM-QDS THREAT DETECTION</h1>
+                <span class="brand-sub">Digital Signature Security Platform • Qiskit Statevector Engine</span>
+            </div>
+        </div>
+        <div class="header-badges">
+            <span class="badge sih-badge">SIH Problem: <strong>SIH26141</strong></span>
+            <span class="badge team-badge">Team: <strong>Qubits</strong></span>
+            <span class="badge status-badge-online"><span class="pulse-dot"></span> Backend Active</span>
+        </div>
+    </header>
+
+    <!-- Main Application Grid -->
+    <main class="dashboard-container">
+        <!-- Navigation Tabs -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="tab-verify">⚡ Live Threat Verification</button>
+            <button class="tab-btn" data-tab="tab-e2e">🧪 End-to-End Suite (6 Cases)</button>
+            <button class="tab-btn" data-tab="tab-security">🛡 Consolidated Security Analysis</button>
+            <button class="tab-btn" data-tab="tab-performance">⏱ Performance Benchmark</button>
+            <button class="tab-btn" data-tab="tab-research">🔬 SIH Problem Compliance</button>
+        </nav>
+
+        <!-- TAB 1: LIVE VERIFICATION ENGINE -->
+        <section id="tab-verify" class="tab-content active">
+            <div class="workspace-layout">
+                <!-- Control Panel Side -->
+                <div class="panel control-panel">
+                    <div class="panel-header">
+                        <h2>🕹 Verification Parameters</h2>
+                    </div>
+
+                    <!-- 1. Quantum State Selector -->
+                    <div class="form-group">
+                        <label>Quantum State Input (|ψ⟩):</label>
+                        <div class="state-grid">
+                            <button type="button" class="state-btn active" data-state="0">
+                                <span class="ket">|0⟩</span>
+                                <span class="basis-tag">Z Basis</span>
+                            </button>
+                            <button type="button" class="state-btn" data-state="1">
+                                <span class="ket">|1⟩</span>
+                                <span class="basis-tag">Z Basis</span>
+                            </button>
+                            <button type="button" class="state-btn" data-state="+">
+                                <span class="ket">|+⟩</span>
+                                <span class="basis-tag">X Basis</span>
+                            </button>
+                            <button type="button" class="state-btn" data-state="-">
+                                <span class="ket">|-⟩</span>
+                                <span class="basis-tag">X Basis</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Attack Selector -->
+                    <div class="form-group">
+                        <label>Simulated Attack Vector:</label>
+                        <select id="attack-select" class="form-control">
+                            <option value="NONE" selected>NONE — Genuine Transmission</option>
+                            <option value="FORGERY">FORGERY — Bit/Phase State Modification</option>
+                            <option value="IMPERSONATION">IMPERSONATION — Sender Identity Spoofing</option>
+                            <option value="REPLAY">REPLAY — Signature Re-use Attack</option>
+                            <option value="CHANNEL">CHANNEL — Channel Manipulation Noise</option>
+                        </select>
+                    </div>
+
+                    <!-- 3. Verifier Identity -->
+                    <div class="form-group">
+                        <label>Verifier Identity (Authorization):</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="verifier" value="Bob" checked>
+                                <span>Bob (Authorized Receiver)</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="verifier" value="Eve">
+                                <span>Eve (Unauthorized Access)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Conditional Channel Gate -->
+                    <div id="channel-gate-group" class="form-group hidden">
+                        <label>Channel Manipulation Gate:</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="channel_gate" value="Z" checked> Pauli-Z (Phase Flip)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="channel_gate" value="X"> Pauli-X (Bit Flip)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Slider Controls -->
+                    <div class="form-group">
+                        <div class="slider-label-row">
+                            <label>Quantum Shots:</label>
+                            <span id="shots-val-display" class="slider-val">1000</span>
+                        </div>
+                        <input type="range" id="shots-slider" min="100" max="5000" step="100" value="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="slider-label-row">
+                            <label>Error Rate Threshold (%):</label>
+                            <span id="error-thresh-display" class="slider-val">10.0%</span>
+                        </div>
+                        <input type="range" id="error-thresh-slider" min="1.0" max="50.0" step="0.5" value="10.0">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="slider-label-row">
+                            <label>Chi-Square (χ²) Threshold:</label>
+                            <span id="chi-thresh-display" class="slider-val">10.0</span>
+                        </div>
+                        <input type="range" id="chi-thresh-slider" min="1.0" max="50.0" step="0.5" value="10.0">
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="btn-action-row">
+                        <button id="run-verify-btn" class="btn btn-primary">
+                            ▶ RUN SECURITY VERIFICATION
+                        </button>
+                        <button id="reset-replay-btn" class="btn btn-secondary">
+                            ↻ Reset Replay Cache
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Display Results Side -->
+                <div class="panel results-panel">
+                    <div class="panel-header">
+                        <h2>📊 Quantum Threat Evaluation Result</h2>
+                    </div>
+
+                    <!-- Main Status Banner -->
+                    <div id="status-banner" class="status-banner status-idle">
+                        <div class="status-icon">⚙</div>
+                        <div class="status-details">
+                            <h3 id="status-title">SYSTEM READY</h3>
+                            <p id="status-subtitle">Select parameters and click Run Security Verification</p>
+                        </div>
+                    </div>
+
+                    <!-- ALICE -> EVE -> BOB QUANTUM COMMUNICATION VISUALIZATION -->
+                    <div class="section-card communication-flow-card">
+                        <div class="comm-header flex-between">
+                            <h3>QUANTUM DIGITAL SIGNATURE COMMUNICATION</h3>
+                            <span id="comm-live-badge" class="badge trace-badge-idle">
+                                <span id="comm-pulse-dot" class="pulse-dot-dim"></span> Ready
+                            </span>
+                        </div>
+
+                        <!-- 3 Nodes Container -->
+                        <div class="nodes-container">
+                            <!-- Node 1: ALICE -->
+                            <div id="node-alice" class="comm-node node-idle">
+                                <div class="node-avatar">👩‍💻</div>
+                                <div class="node-title">ALICE</div>
+                                <div class="node-role">Legitimate Sender</div>
+                                <div class="node-details">
+                                    <div id="alice-state-tag" class="node-chip">State: |0⟩</div>
+                                    <div id="alice-sig-tag" class="node-chip">Signature: Active</div>
+                                </div>
+                                <div id="alice-status-msg" class="node-status-sub">Awaiting Transmission</div>
+                            </div>
+
+                            <!-- Connector 1: ALICE -> EVE -->
+                            <div class="comm-connector">
+                                <div id="packet-alice-eve" class="comm-packet hidden">
+                                    <span id="packet-state-1">|0⟩</span>
+                                    <span class="packet-sig">SIG</span>
+                                </div>
+                                <div class="comm-arrow-line"></div>
+                            </div>
+
+                            <!-- Node 2: EVE -->
+                            <div id="node-eve" class="comm-node node-idle">
+                                <div class="node-avatar">🕵️</div>
+                                <div class="node-title">EVE</div>
+                                <div class="node-role">Potential Attacker</div>
+                                <div class="node-details">
+                                    <div id="eve-attack-tag" class="node-chip">Vector: NONE</div>
+                                    <div id="eve-trans-tag" class="node-chip">State: Preserved</div>
+                                </div>
+                                <div id="eve-status-msg" class="node-status-sub">Listening...</div>
+                            </div>
+
+                            <!-- Connector 2: EVE -> BOB -->
+                            <div class="comm-connector">
+                                <div id="packet-eve-bob" class="comm-packet hidden">
+                                    <span id="packet-state-2">|0⟩</span>
+                                    <span class="packet-sig">SIG</span>
+                                </div>
+                                <div class="comm-arrow-line"></div>
+                            </div>
+
+                            <!-- Node 3: BOB -->
+                            <div id="node-bob" class="comm-node node-idle">
+                                <div class="node-avatar">👨‍💻</div>
+                                <div class="node-title">BOB</div>
+                                <div class="node-role">Authorized Receiver</div>
+                                <div class="node-details">
+                                    <div id="bob-basis-tag" class="node-chip">Basis: Z-Basis</div>
+                                    <div id="bob-shots-tag" class="node-chip">Shots: 1000</div>
+                                </div>
+                                <div id="bob-status-msg" class="node-status-sub">Awaiting Packet</div>
+                            </div>
+                        </div>
+
+                        <!-- BOB'S VERIFICATION DETAILS PANEL -->
+                        <div id="bob-verification-box" class="bob-verification-card">
+                            <h4>👨‍💻 Bob's Live Quantum Verification Stages:</h4>
+                            <div class="bob-steps-grid">
+                                <div id="bob-step-basis" class="bob-step"><span class="bob-step-icon">⚪</span> 1. Basis Selection: <strong id="bob-val-basis">-- Basis</strong></div>
+                                <div id="bob-step-meas" class="bob-step"><span class="bob-step-icon">⚪</span> 2. Quantum Measurement: <strong id="bob-val-counts">--</strong></div>
+                                <div id="bob-step-error" class="bob-step"><span class="bob-step-icon">⚪</span> 3. Error Analysis: <strong id="bob-val-error">--</strong></div>
+                                <div id="bob-step-chi" class="bob-step"><span class="bob-step-icon">⚪</span> 4. Chi-Square (χ²): <strong id="bob-val-chi">--</strong></div>
+                                <div id="bob-step-verdict" class="bob-step"><span class="bob-step-icon">⚪</span> 5. Final Verdict: <strong id="bob-val-verdict">Awaiting Verification</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Summary Cards -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-label">Observed Error Rate</span>
+                            <span id="metric-error-rate" class="metric-value">-- %</span>
+                            <span id="metric-error-thresh" class="metric-sub">Threshold: 10.0%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Chi-Square Statistic (χ²)</span>
+                            <span id="metric-chi-square" class="metric-value">--</span>
+                            <span id="metric-chi-thresh" class="metric-sub">Threshold: 10.0</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Measurement Basis</span>
+                            <span id="metric-basis" class="metric-value">-- Basis</span>
+                            <span id="metric-state" class="metric-sub">State: |0⟩</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Threat Decision</span>
+                            <span id="metric-verdict" class="metric-value">--</span>
+                            <span id="metric-attack" class="metric-sub">Vector: NONE</span>
+                        </div>
+                    </div>
+
+                    <!-- STATISTICAL ANALYSIS TABLE -->
+                    <div class="section-card">
+                        <h3>📐 Statistical Threshold Analysis</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Observed Value</th>
+                                        <th>Configured Threshold</th>
+                                        <th>Status Verdict</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Observed Error Rate</td>
+                                        <td id="stat-obs-error">--</td>
+                                        <td id="stat-thresh-error">10.00%</td>
+                                        <td><span id="stat-status-error" class="badge">--</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chi-Square Statistic (χ²)</td>
+                                        <td id="stat-obs-chi">--</td>
+                                        <td id="stat-thresh-chi">10.00</td>
+                                        <td><span id="stat-status-chi" class="badge">--</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Measurement Histogram & Distribution -->
+                    <div class="section-card">
+                        <h3>📈 Quantum Measurement Counts Distribution</h3>
+                        <div class="histogram-container">
+                            <div class="histogram-row">
+                                <span class="hist-label">Outcome |0⟩:</span>
+                                <div class="bar-outer">
+                                    <div id="bar-0" class="bar-inner bar-cyan" style="width: 0%;"></div>
+                                </div>
+                                <span id="count-0" class="hist-count">0</span>
+                            </div>
+                            <div class="histogram-row">
+                                <span class="hist-label">Outcome |1⟩:</span>
+                                <div class="bar-outer">
+                                    <div id="bar-1" class="bar-inner bar-purple" style="width: 0%;"></div>
+                                </div>
+                                <span id="count-1" class="hist-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attack Explanation Box -->
+                    <div class="section-card">
+                        <h3>🔍 Attack Explanation & Context</h3>
+                        <div id="attack-exp-box" class="reason-box">
+                            No attack applied. Legitimate verification path.
+                        </div>
+                    </div>
+
+                    <!-- Detailed Explanation & Reasoning -->
+                    <div class="section-card">
+                        <h3>🔍 Threat Analysis & Reason</h3>
+                        <div id="threat-reason-box" class="reason-box">
+                            No verification executed yet.
+                        </div>
+                    </div>
+
+                    <!-- WHAT IS ACTUALLY BEING SIMULATED? INFO PANEL -->
+                    <div class="section-card info-panel-card">
+                        <h3>ℹ WHAT IS ACTUALLY BEING SIMULATED?</h3>
+                        <p class="info-text">
+                            <strong>Software-based quantum simulation using Qiskit Statevector.</strong><br>
+                            Qiskit Statevector simulation is used to model the quantum-state operations and measurements. Alice, Bob and Eve represent the communication roles in the cybersecurity scenario.
+                        </p>
+                        <div class="sim-pipeline-flow">
+                            <span class="sim-chip">Alice (State Prep)</span>
+                            <span class="sim-arrow">→</span>
+                            <span class="sim-chip">Communication</span>
+                            <span class="sim-arrow">→</span>
+                            <span class="sim-chip">Eve (Simulated Attack)</span>
+                            <span class="sim-arrow">→</span>
+                            <span class="sim-chip">Bob (Quantum Measurement)</span>
+                            <span class="sim-arrow">→</span>
+                            <span class="sim-chip">Statistical Analysis</span>
+                            <span class="sim-arrow">→</span>
+                            <span class="sim-chip">Threat Decision</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: END-TO-END VALIDATION SUITE -->
+        <section id="tab-e2e" class="tab-content">
+            <div class="panel">
+                <div class="panel-header flex-between">
+                    <h2>🧪 End-to-End Controlled Benchmark (6 Scenarios)</h2>
+                    <button id="run-e2e-btn" class="btn btn-primary btn-sm">▶ Execute Full Suite</button>
+                </div>
+                <p class="section-desc">Runs automated verification across all 6 core attack vectors to validate security isolation and threat detection limits.</p>
+                
+                <div class="table-container">
+                    <table class="data-table" id="e2e-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Scenario Name</th>
+                                <th>Input State</th>
+                                <th>Target Verifier</th>
+                                <th>Expected Status</th>
+                                <th>Observed Status</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="7" class="text-muted">Click 'Execute Full Suite' to run automated benchmark.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CONSOLIDATED SECURITY ANALYSIS -->
+        <section id="tab-security" class="tab-content">
+            <div class="panel">
+                <div class="panel-header flex-between">
+                    <h2>🛡 Consolidated Security Analysis</h2>
+                    <button id="run-sec-btn" class="btn btn-primary btn-sm">▶ Load Metrics</button>
+                </div>
+
+                <div class="metrics-grid margin-bottom-lg">
+                    <div class="metric-card metric-card-accent">
+                        <span class="metric-label">Detection Rate / TPR</span>
+                        <span id="sec-tpr" class="metric-value">-- %</span>
+                        <span class="metric-sub">Controlled Prototype Benchmark</span>
+                    </div>
+                    <div class="metric-card metric-card-accent">
+                        <span class="metric-label">True Negative Rate (TNR / Specificity)</span>
+                        <span id="sec-tnr" class="metric-value">-- %</span>
+                        <span class="metric-sub">Genuine Transmission Pass-through</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">False Positive Rate (FPR)</span>
+                        <span id="sec-fpr" class="metric-value">-- %</span>
+                        <span class="metric-sub">Target: 0%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">False Negative Rate (FNR)</span>
+                        <span id="sec-fnr" class="metric-value">-- %</span>
+                        <span class="metric-sub">Target: Minimal</span>
+                    </div>
+                </div>
+
+                <div id="sec-analysis-body" class="markdown-output">
+                    <p class="text-muted">Click 'Load Metrics' to evaluate prototype security performance metrics.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: PERFORMANCE BENCHMARK -->
+        <section id="tab-performance" class="tab-content">
+            <div class="panel">
+                <div class="panel-header flex-between">
+                    <h2>⏱ Pipeline Latency & Performance Evaluation</h2>
+                    <button id="run-perf-btn" class="btn btn-primary btn-sm">▶ Run Benchmark</button>
+                </div>
+                
+                <div id="perf-results-container" class="table-container">
+                    <p class="text-muted">Click 'Run Benchmark' to execute time.perf_counter() latency measurements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: SIH PROBLEM COMPLIANCE -->
+        <section id="tab-research" class="tab-content">
+            <div class="panel">
+                <div class="panel-header flex-between">
+                    <h2>🔬 SIH26141 Problem Statement Compliance Matrix</h2>
+                    <button id="run-research-btn" class="btn btn-primary btn-sm">▶ Evaluate Compliance</button>
+                </div>
+                <div id="research-compliance-body" class="markdown-output">
+                    <p class="text-muted">Click 'Evaluate Compliance' to retrieve SIH26141 research evaluation breakdown.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>SIH 2026 Project Implementation • Problem Statement SIH26141 • Team Qubits • Qiskit Statevector Simulation</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

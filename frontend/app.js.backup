@@ -1,0 +1,613 @@
+/* ==========================================================================
+   SIH26141 QUANTUM QDS THREAT DETECTION DASHBOARD - JAVASCRIPT APP
+   Handles ALICE -> EVE -> BOB communication flow animation, API requests,
+   and dynamic metric rendering for judge demo.
+   ========================================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+    // -------------------------------------------------------------------
+    // Application State Variables
+    // -------------------------------------------------------------------
+    let selectedState = "0";
+    let selectedAttack = "NONE";
+    let selectedVerifier = "Bob";
+    let channelGate = "Z";
+
+    const API_BASE = "";
+
+    // -------------------------------------------------------------------
+    // DOM Element References
+    // -------------------------------------------------------------------
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+    const stateBtns = document.querySelectorAll(".state-btn");
+    const attackSelect = document.getElementById("attack-select");
+    const channelGateGroup = document.getElementById("channel-gate-group");
+    const verifierRadios = document.querySelectorAll("input[name='verifier']");
+    const gateRadios = document.querySelectorAll("input[name='channel_gate']");
+
+    const shotsSlider = document.getElementById("shots-slider");
+    const shotsValDisplay = document.getElementById("shots-val-display");
+    const errorThreshSlider = document.getElementById("error-thresh-slider");
+    const errorThreshDisplay = document.getElementById("error-thresh-display");
+    const chiThreshSlider = document.getElementById("chi-thresh-slider");
+    const chiThreshDisplay = document.getElementById("chi-thresh-display");
+
+    const runVerifyBtn = document.getElementById("run-verify-btn");
+    const resetReplayBtn = document.getElementById("reset-replay-btn");
+
+    // Output UI Elements
+    const statusBanner = document.getElementById("status-banner");
+    const statusTitle = document.getElementById("status-title");
+    const statusSubtitle = document.getElementById("status-subtitle");
+
+    const metricErrorRate = document.getElementById("metric-error-rate");
+    const metricErrorThresh = document.getElementById("metric-error-thresh");
+    const metricChiSquare = document.getElementById("metric-chi-square");
+    const metricChiThresh = document.getElementById("metric-chi-thresh");
+    const metricBasis = document.getElementById("metric-basis");
+    const metricState = document.getElementById("metric-state");
+    const metricVerdict = document.getElementById("metric-verdict");
+    const metricAttack = document.getElementById("metric-attack");
+
+    const statObsError = document.getElementById("stat-obs-error");
+    const statThreshError = document.getElementById("stat-thresh-error");
+    const statStatusError = document.getElementById("stat-status-error");
+
+    const statObsChi = document.getElementById("stat-obs-chi");
+    const statThreshChi = document.getElementById("stat-thresh-chi");
+    const statStatusChi = document.getElementById("stat-status-chi");
+
+    const bar0 = document.getElementById("bar-0");
+    const bar1 = document.getElementById("bar-1");
+    const count0 = document.getElementById("count-0");
+    const count1 = document.getElementById("count-1");
+
+    const attackExpBox = document.getElementById("attack-exp-box");
+    const threatReasonBox = document.getElementById("threat-reason-box");
+
+    // ALICE -> EVE -> BOB Node & Packet References
+    const commLiveBadge = document.getElementById("comm-live-badge");
+    const commPulseDot = document.getElementById("comm-pulse-dot");
+
+    const nodeAlice = document.getElementById("node-alice");
+    const aliceStateTag = document.getElementById("alice-state-tag");
+    const aliceSigTag = document.getElementById("alice-sig-tag");
+    const aliceStatusMsg = document.getElementById("alice-status-msg");
+
+    const nodeEve = document.getElementById("node-eve");
+    const eveAttackTag = document.getElementById("eve-attack-tag");
+    const eveTransTag = document.getElementById("eve-trans-tag");
+    const eveStatusMsg = document.getElementById("eve-status-msg");
+
+    const nodeBob = document.getElementById("node-bob");
+    const bobBasisTag = document.getElementById("bob-basis-tag");
+    const bobShotsTag = document.getElementById("bob-shots-tag");
+    const bobStatusMsg = document.getElementById("bob-status-msg");
+
+    const packetAliceEve = document.getElementById("packet-alice-eve");
+    const packetState1 = document.getElementById("packet-state-1");
+
+    const packetEveBob = document.getElementById("packet-eve-bob");
+    const packetState2 = document.getElementById("packet-state-2");
+
+    const bobVerificationBox = document.getElementById("bob-verification-box");
+    const bobStepBasis = document.getElementById("bob-step-basis");
+    const bobStepMeas = document.getElementById("bob-step-meas");
+    const bobStepError = document.getElementById("bob-step-error");
+    const bobStepChi = document.getElementById("bob-step-chi");
+    const bobStepVerdict = document.getElementById("bob-step-verdict");
+
+    const bobValBasis = document.getElementById("bob-val-basis");
+    const bobValCounts = document.getElementById("bob-val-counts");
+    const bobValError = document.getElementById("bob-val-error");
+    const bobValChi = document.getElementById("bob-val-chi");
+    const bobValVerdict = document.getElementById("bob-val-verdict");
+
+    // Attack Explanation Dictionary
+    const ATTACK_EXPLANATIONS = {
+        "FORGERY": "Received quantum state/signature differs from the expected state.",
+        "IMPERSONATION": "Verifier identity does not match the authorized identity.",
+        "REPLAY": "Previously used message/signature hash was submitted again.",
+        "CHANNEL": "Simulated Pauli operation changed the transmitted quantum state.",
+        "NONE": "No attack applied. Legitimate verification path."
+    };
+
+    // -------------------------------------------------------------------
+    // Navigation Tab Switching
+    // -------------------------------------------------------------------
+    tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const targetTab = btn.getAttribute("data-tab");
+
+            tabBtns.forEach(b => b.classList.remove("active"));
+            tabContents.forEach(c => c.classList.remove("active"));
+
+            btn.classList.add("active");
+            document.getElementById(targetTab).classList.add("active");
+        });
+    });
+
+    // -------------------------------------------------------------------
+    // Quantum State Selector
+    // -------------------------------------------------------------------
+    stateBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            stateBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedState = btn.getAttribute("data-state");
+            aliceStateTag.textContent = `State: |${selectedState}⟩`;
+        });
+    });
+
+    // -------------------------------------------------------------------
+    // Attack Selector & Conditional Visibility
+    // -------------------------------------------------------------------
+    attackSelect.addEventListener("change", (e) => {
+        selectedAttack = e.target.value;
+        if (selectedAttack === "CHANNEL") {
+            channelGateGroup.classList.remove("hidden");
+        } else {
+            channelGateGroup.classList.add("hidden");
+        }
+        eveAttackTag.textContent = `Vector: ${selectedAttack}`;
+        updateAttackExplanation(selectedAttack);
+    });
+
+    verifierRadios.forEach(radio => {
+        radio.addEventListener("change", (e) => {
+            selectedVerifier = e.target.value;
+        });
+    });
+
+    gateRadios.forEach(radio => {
+        radio.addEventListener("change", (e) => {
+            channelGate = e.target.value;
+        });
+    });
+
+    // -------------------------------------------------------------------
+    // Sliders Live Updates
+    // -------------------------------------------------------------------
+    shotsSlider.addEventListener("input", (e) => {
+        shotsValDisplay.textContent = e.target.value;
+        bobShotsTag.textContent = `Shots: ${e.target.value}`;
+    });
+
+    errorThreshSlider.addEventListener("input", (e) => {
+        const val = parseFloat(e.target.value).toFixed(1);
+        errorThreshDisplay.textContent = `${val}%`;
+        statThreshError.textContent = `${val}%`;
+    });
+
+    chiThreshSlider.addEventListener("input", (e) => {
+        const val = parseFloat(e.target.value).toFixed(1);
+        chiThreshDisplay.textContent = val;
+        statThreshChi.textContent = val;
+    });
+
+    function updateAttackExplanation(attackKey) {
+        if (attackExpBox) {
+            attackExpBox.textContent = ATTACK_EXPLANATIONS[attackKey] || ATTACK_EXPLANATIONS["NONE"];
+        }
+    }
+
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    // -------------------------------------------------------------------
+    // Execute Verification Request (POST /api/verify)
+    // -------------------------------------------------------------------
+    runVerifyBtn.addEventListener("click", async () => {
+        runVerifyBtn.disabled = true;
+        runVerifyBtn.innerHTML = "⏳ RUNNING SIMULATION...";
+
+        // Set Live Badge active
+        commLiveBadge.className = "badge trace-badge-active";
+        commPulseDot.className = "pulse-dot-active";
+        commLiveBadge.childNodes[1].nodeValue = " Transmission Active";
+
+        const payload = {
+            state: selectedState,
+            attack: selectedAttack,
+            verifier: selectedVerifier,
+            sender: (selectedAttack === "IMPERSONATION") ? "Attacker" : "Alice",
+            shots: parseInt(shotsSlider.value),
+            error_threshold_pct: parseFloat(errorThreshSlider.value),
+            chi_threshold: parseFloat(chiThreshSlider.value),
+            channel_gate: channelGate,
+            digital_message: "SIH26141 Verification Payload",
+            signature_id: `sig_sih_${Date.now()}`
+        };
+
+        try {
+            const response = await fetch(`${API_BASE}/api/verify`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.detail || "HTTP error during verification");
+            }
+
+            const data = await response.json();
+
+            // Animate ALICE -> EVE -> BOB communication flow sequentially (~5 seconds total)
+            await animateCommunicationFlow(data);
+
+            // Update main UI metrics & status banner
+            updateVerificationUI(data);
+
+        } catch (error) {
+            console.error("Verification Error:", error);
+            alert(`Verification Error: ${error.message}`);
+        } finally {
+            commLiveBadge.className = "badge trace-badge-idle";
+            commPulseDot.className = "pulse-dot-dim";
+            commLiveBadge.childNodes[1].nodeValue = " Transmission Complete";
+
+            runVerifyBtn.disabled = false;
+            runVerifyBtn.innerHTML = "▶ RUN SECURITY VERIFICATION";
+        }
+    });
+
+    // -------------------------------------------------------------------
+    // Animate ALICE -> EVE -> BOB Communication Flow
+    // -------------------------------------------------------------------
+    async function animateCommunicationFlow(data) {
+        // Reset node styles
+        nodeAlice.className = "comm-node node-idle";
+        nodeEve.className = "comm-node node-idle";
+        nodeBob.className = "comm-node node-idle";
+
+        packetAliceEve.classList.add("hidden");
+        packetEveBob.classList.add("hidden");
+
+        aliceStatusMsg.textContent = "Idle";
+        eveStatusMsg.textContent = "Listening...";
+        bobStatusMsg.textContent = "Awaiting Packet";
+
+        bobVerificationBox.classList.add("hidden");
+
+        const isBlocked = (data.status === "BLOCKED");
+        const attackType = data.attack || selectedAttack;
+        const inputState = data.state || selectedState;
+        const receivedState = data.attack_details ? (data.attack_details.received_state || inputState) : inputState;
+
+        // STEP 1: ALICE ACTIVATION (0 - 600 ms)
+        nodeAlice.className = "comm-node node-active-alice";
+        aliceStateTag.textContent = `State: |${inputState}⟩`;
+        aliceStatusMsg.textContent = "Preparing message & quantum state...";
+        await sleep(600);
+
+        // STEP 2: PACKET ALICE -> EVE (600 - 1600 ms)
+        packetState1.textContent = `|${inputState}⟩`;
+        packetAliceEve.classList.remove("hidden");
+        aliceStatusMsg.textContent = "Transmitting packet to channel...";
+        await sleep(1000);
+        packetAliceEve.classList.add("hidden");
+
+        // STEP 3: EVE INTERCEPT / ATTACK (1600 - 2800 ms)
+        nodeAlice.className = "comm-node node-idle";
+        nodeEve.className = "comm-node node-active-eve";
+        eveAttackTag.textContent = `Vector: ${attackType}`;
+
+        if (isBlocked) {
+            eveTransTag.textContent = "Header Check: FAILED";
+            eveStatusMsg.textContent = "Unauthorized verifier 'Eve' attempt BLOCKED!";
+            await sleep(1200);
+            return; // Stop flow for Eve BLOCKED
+        }
+
+        if (attackType === "NONE") {
+            eveTransTag.textContent = "State: Preserved";
+            eveStatusMsg.textContent = "No attack applied (Transmission passed as-is)";
+        } else if (attackType === "FORGERY") {
+            eveTransTag.textContent = `|${inputState}⟩ → |${receivedState}⟩`;
+            eveStatusMsg.textContent = "Forgery attempt (Bit/Phase flip executed)";
+        } else if (attackType === "CHANNEL") {
+            eveTransTag.textContent = `|${inputState}⟩ → Pauli-${channelGate} → |${receivedState}⟩`;
+            eveStatusMsg.textContent = `Pauli-${channelGate} channel manipulation applied`;
+        } else if (attackType === "IMPERSONATION") {
+            eveTransTag.textContent = "Sender Mismatch";
+            eveStatusMsg.textContent = "Identity spoofing: Attacker claiming Alice's key";
+        } else if (attackType === "REPLAY") {
+            const isRep = data.attack_details ? data.attack_details.replay_detected : false;
+            if (isRep) {
+                eveTransTag.textContent = "Duplicate Hash";
+                eveStatusMsg.textContent = "Replay Attack: Previously used signature re-submitted";
+            } else {
+                eveTransTag.textContent = "First Use";
+                eveStatusMsg.textContent = "First signature use verified & registered";
+            }
+        }
+        await sleep(1200);
+
+        // STEP 4: PACKET EVE -> BOB (2800 - 3800 ms)
+        packetState2.textContent = `|${receivedState}⟩`;
+        packetEveBob.classList.remove("hidden");
+        eveStatusMsg.textContent = "Relaying packet to receiver Bob...";
+        await sleep(1000);
+        packetEveBob.classList.add("hidden");
+
+        // STEP 5: BOB VERIFICATION (3800 - 5200 ms)
+        nodeEve.className = "comm-node node-idle";
+        nodeBob.className = "comm-node node-active-bob";
+        bobBasisTag.textContent = `Basis: ${data.basis}-Basis`;
+        bobShotsTag.textContent = `Shots: ${data.shots}`;
+        bobStatusMsg.textContent = "Executing quantum measurement & analysis...";
+
+        bobVerificationBox.classList.remove("hidden");
+
+        // Reveal Bob's steps sequentially
+        const counts = data.measurement_counts || {};
+        const c0 = counts[0] || counts["0"] || 0;
+        const c1 = counts[1] || counts["1"] || 0;
+
+        bobValBasis.textContent = `${data.basis}-Basis`;
+        bobValCounts.textContent = `|0⟩ = ${c0}, |1⟩ = ${c1}`;
+        bobValError.textContent = `${data.error_rate_percent.toFixed(2)}%`;
+        bobValChi.textContent = `${data.chi_square.toFixed(2)}`;
+        bobValVerdict.textContent = data.status;
+
+        // Highlight icons sequentially
+        bobStepBasis.querySelector(".bob-step-icon").textContent = "✓";
+        await sleep(300);
+        bobStepMeas.querySelector(".bob-step-icon").textContent = "✓";
+        await sleep(300);
+        bobStepError.querySelector(".bob-step-icon").textContent = "✓";
+        await sleep(300);
+        bobStepChi.querySelector(".bob-step-icon").textContent = "✓";
+        await sleep(300);
+
+        if (data.status === "VALID") {
+            bobStepVerdict.querySelector(".bob-step-icon").textContent = "✅";
+            bobStatusMsg.textContent = "Communication Verified (VALID SIGNATURE)";
+        } else {
+            bobStepVerdict.querySelector(".bob-step-icon").textContent = "⚠";
+            bobStatusMsg.textContent = "Cyber Threat Detected! (VERIFICATION REJECTED)";
+        }
+        await sleep(400);
+    }
+
+    // -------------------------------------------------------------------
+    // Update Verification Results UI & Tables
+    // -------------------------------------------------------------------
+    function updateVerificationUI(data) {
+        statusBanner.className = "status-banner";
+
+        if (data.status === "VALID") {
+            statusBanner.classList.add("status-valid");
+            statusTitle.textContent = "✓ VERIFICATION VALID — NO THREAT DETECTED";
+            statusSubtitle.textContent = `Legitimate Quantum Signature Transmission Verified (${data.basis} Basis)`;
+        } else if (data.status === "THREAT") {
+            statusBanner.classList.add("status-threat");
+            statusTitle.textContent = "⚠ CYBER THREAT DETECTED";
+            statusSubtitle.textContent = `Attack Vector Identified: ${data.attack}`;
+        } else if (data.status === "BLOCKED") {
+            statusBanner.classList.add("status-blocked");
+            statusTitle.textContent = "🚫 UNAUTHORIZED ACCESS BLOCKED";
+            statusSubtitle.textContent = `Unauthorized Verifier '${data.verifier}' Blocked by Gateway`;
+        }
+
+        updateAttackExplanation(data.attack || selectedAttack);
+
+        // Handle BLOCKED responses which omit statistical metrics
+        if (data.status === "BLOCKED") {
+            metricErrorRate.textContent = "N/A";
+            metricChiSquare.textContent = "N/A";
+            metricBasis.textContent = "Blocked";
+            metricState.textContent = `State: |${data.state}⟩`;
+            metricVerdict.textContent = "BLOCKED";
+            metricAttack.textContent = "UNAUTHORIZED";
+
+            statObsError.textContent = "N/A";
+            statStatusError.className = "badge badge-blocked";
+            statStatusError.textContent = "BLOCKED";
+
+            statObsChi.textContent = "N/A";
+            statStatusChi.className = "badge badge-blocked";
+            statStatusChi.textContent = "BLOCKED";
+
+            bar0.style.width = "0%";
+            bar1.style.width = "0%";
+            count0.textContent = "0";
+            count1.textContent = "0";
+
+            threatReasonBox.textContent = data.message || "Unauthorized verifier identity blocked before quantum measurement.";
+            return;
+        }
+
+        // Metrics values
+        const errPct = data.error_rate_percent;
+        const chiVal = data.chi_square;
+        const errThresh = data.threshold.error_threshold_percent;
+        const chiThresh = data.threshold.chi_threshold;
+
+        metricErrorRate.textContent = `${errPct.toFixed(2)}%`;
+        metricErrorThresh.textContent = `Threshold: ${errThresh.toFixed(1)}%`;
+
+        metricChiSquare.textContent = chiVal.toFixed(2);
+        metricChiThresh.textContent = `Threshold: ${chiThresh.toFixed(1)}`;
+
+        metricBasis.textContent = `${data.basis} Basis`;
+        metricState.textContent = `State: |${data.state}⟩`;
+
+        metricVerdict.textContent = data.status;
+        metricAttack.textContent = `Vector: ${data.attack}`;
+
+        // Update Statistical Table
+        statObsError.textContent = `${errPct.toFixed(2)}%`;
+        statThreshError.textContent = `${errThresh.toFixed(2)}%`;
+        if (errPct > errThresh) {
+            statStatusError.className = "badge badge-exceeded";
+            statStatusError.textContent = "EXCEEDED";
+        } else {
+            statStatusError.className = "badge badge-within";
+            statStatusError.textContent = "WITHIN THRESHOLD";
+        }
+
+        statObsChi.textContent = chiVal.toFixed(2);
+        statThreshChi.textContent = chiThresh.toFixed(2);
+        if (chiVal > chiThresh) {
+            statStatusChi.className = "badge badge-exceeded";
+            statStatusChi.textContent = "EXCEEDED";
+        } else {
+            statStatusChi.className = "badge badge-within";
+            statStatusChi.textContent = "WITHIN THRESHOLD";
+        }
+
+        // Measurement counts histogram
+        const counts = data.measurement_counts || {};
+        const c0 = counts[0] || counts["0"] || 0;
+        const c1 = counts[1] || counts["1"] || 0;
+        const total = (c0 + c1) || 1;
+
+        const p0 = ((c0 / total) * 100).toFixed(1);
+        const p1 = ((c1 / total) * 100).toFixed(1);
+
+        bar0.style.width = `${p0}%`;
+        bar1.style.width = `${p1}%`;
+        count0.textContent = `${c0} (${p0}%)`;
+        count1.textContent = `${c1} (${p1}%)`;
+
+        // Threat reason text
+        const thRes = data.threshold_result || {};
+        let reasonStr = thRes.reason || "Verification passed cleanly.";
+        if (data.attack_details && data.attack_details.invisibility_reason) {
+            reasonStr += `\n\n[Quantum Note]: ${data.attack_details.invisibility_reason}`;
+        }
+        threatReasonBox.textContent = reasonStr;
+    }
+
+    // -------------------------------------------------------------------
+    // Reset Replay Cache (POST /api/replay/reset)
+    // -------------------------------------------------------------------
+    resetReplayBtn.addEventListener("click", async () => {
+        try {
+            const res = await fetch(`${API_BASE}/api/replay/reset`, { method: "POST" });
+            const d = await res.json();
+            alert(d.message || "Replay signature cache cleared!");
+        } catch (e) {
+            alert(`Reset failed: ${e.message}`);
+        }
+    });
+
+    // -------------------------------------------------------------------
+    // TAB 2: End-to-End Validation Suite
+    // -------------------------------------------------------------------
+    const runE2eBtn = document.getElementById("run-e2e-btn");
+    const e2eTableBody = document.querySelector("#e2e-table tbody");
+
+    runE2eBtn.addEventListener("click", async () => {
+        runE2eBtn.disabled = true;
+        runE2eBtn.textContent = "⏳ Running Suite...";
+        e2eTableBody.innerHTML = `<tr><td colspan="7" class="text-muted">Executing 6-scenario benchmark...</td></tr>`;
+
+        try {
+            const res = await fetch(`${API_BASE}/api/end-to-end?shots=1000`);
+            const data = await res.json();
+            
+            const results = data.matrix || data.scenarios || data.results || data;
+
+            if (Array.isArray(results)) {
+                e2eTableBody.innerHTML = results.map((sc, idx) => `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td>${sc.scenario_name || sc.name || 'Scenario'}</td>
+                        <td>|${sc.state || '0'}⟩</td>
+                        <td>${sc.verifier || 'Bob'}</td>
+                        <td><span class="badge">${sc.expected_decision || sc.expected || 'VALID'}</span></td>
+                        <td><span class="badge">${sc.actual_decision || sc.observed || 'VALID'}</span></td>
+                        <td>${(sc.status === "PASS" || sc.passed || sc.success) ? '✅ PASS' : '❌ FAIL'}</td>
+                    </tr>
+                `).join("");
+            } else {
+                e2eTableBody.innerHTML = `<tr><td colspan="7"><pre>${JSON.stringify(data, null, 2)}</pre></td></tr>`;
+            }
+        } catch (e) {
+            e2eTableBody.innerHTML = `<tr><td colspan="7" style="color: var(--rose-red);">Error: ${e.message}</td></tr>`;
+        } finally {
+            runE2eBtn.disabled = false;
+            runE2eBtn.textContent = "▶ Execute Full Suite";
+        }
+    });
+
+    // -------------------------------------------------------------------
+    // TAB 3: Security Analysis
+    // -------------------------------------------------------------------
+    const runSecBtn = document.getElementById("run-sec-btn");
+    const secTpr = document.getElementById("sec-tpr");
+    const secTnr = document.getElementById("sec-tnr");
+    const secFpr = document.getElementById("sec-fpr");
+    const secFnr = document.getElementById("sec-fnr");
+    const secAnalysisBody = document.getElementById("sec-analysis-body");
+
+    runSecBtn.addEventListener("click", async () => {
+        runSecBtn.disabled = true;
+        runSecBtn.textContent = "⏳ Loading...";
+
+        try {
+            const res = await fetch(`${API_BASE}/api/security-analysis?shots=1000`);
+            const data = await res.json();
+
+            const m = data.metrics_summary || data.consolidated_metrics || {};
+            secTpr.textContent = `${m.TPR != null ? m.TPR.toFixed(2) : (m.tpr_percent != null ? m.tpr_percent.toFixed(2) : '--')}%`;
+            secTnr.textContent = `${m.TNR != null ? m.TNR.toFixed(2) : (m.tnr_percent != null ? m.tnr_percent.toFixed(2) : '--')}%`;
+            secFpr.textContent = `${m.FPR != null ? m.FPR.toFixed(2) : (m.fpr_percent != null ? m.fpr_percent.toFixed(2) : '--')}%`;
+            secFnr.textContent = `${m.FNR != null ? m.FNR.toFixed(2) : (m.fnr_percent != null ? m.fnr_percent.toFixed(2) : '--')}%`;
+
+            secAnalysisBody.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (e) {
+            secAnalysisBody.innerHTML = `<p style="color: var(--rose-red);">Failed to load security metrics: ${e.message}</p>`;
+        } finally {
+            runSecBtn.disabled = false;
+            runSecBtn.textContent = "▶ Load Metrics";
+        }
+    });
+
+    // -------------------------------------------------------------------
+    // TAB 4: Performance Benchmark
+    // -------------------------------------------------------------------
+    const runPerfBtn = document.getElementById("run-perf-btn");
+    const perfContainer = document.getElementById("perf-results-container");
+
+    runPerfBtn.addEventListener("click", async () => {
+        runPerfBtn.disabled = true;
+        runPerfBtn.textContent = "⏳ Measuring...";
+
+        try {
+            const res = await fetch(`${API_BASE}/api/performance?attempts=50&shots=1000`);
+            const data = await res.json();
+            perfContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (e) {
+            perfContainer.innerHTML = `<p style="color: var(--rose-red);">Benchmark failed: ${e.message}</p>`;
+        } finally {
+            runPerfBtn.disabled = false;
+            runPerfBtn.textContent = "▶ Run Benchmark";
+        }
+    });
+
+    // -------------------------------------------------------------------
+    // TAB 5: Research Evaluation
+    // -------------------------------------------------------------------
+    const runResearchBtn = document.getElementById("run-research-btn");
+    const researchBody = document.getElementById("research-compliance-body");
+
+    runResearchBtn.addEventListener("click", async () => {
+        runResearchBtn.disabled = true;
+        runResearchBtn.textContent = "⏳ Evaluating...";
+
+        try {
+            const res = await fetch(`${API_BASE}/api/research-evaluation?shots=1000`);
+            const data = await res.json();
+            researchBody.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (e) {
+            researchBody.innerHTML = `<p style="color: var(--rose-red);">Evaluation failed: ${e.message}</p>`;
+        } finally {
+            runResearchBtn.disabled = false;
+            runResearchBtn.textContent = "▶ Evaluate Compliance";
+        }
+    });
+});

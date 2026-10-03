@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Qubits | SIH26141 — Quantum-Inspired Cyber Threat Detection SOC</title>
+    <meta name="description" content="Quantum-Inspired Cyber Threat Detection for Digital Signature Security — SIH 2026 Problem SIH26141 Team Qubits">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ==================== BACKGROUND PARTICLES & GRID ==================== -->
+<canvas id="quantum-bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
+<div class="bg-layer" aria-hidden="true">
+    <div class="bg-perspective-grid"></div>
+    <div class="bg-radial-glow glow-top-center"></div>
+    <div class="bg-radial-glow glow-alice"></div>
+    <div class="bg-radial-glow glow-eve"></div>
+    <div class="bg-radial-glow glow-bob"></div>
+</div>
+
+<!-- ==================== TOP HEADER ==================== -->
+<header class="top-header">
+    <div class="th-left">
+        <div class="th-logo-box">
+            <svg class="atom-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="7" fill="#38bdf8" class="atom-core"/>
+                <ellipse cx="50" cy="50" rx="42" ry="14" stroke="#38bdf8" stroke-width="2" transform="rotate(0 50 50)"/>
+                <ellipse cx="50" cy="50" rx="42" ry="14" stroke="#818cf8" stroke-width="2" transform="rotate(60 50 50)"/>
+                <ellipse cx="50" cy="50" rx="42" ry="14" stroke="#38bdf8" stroke-width="2" transform="rotate(120 50 50)"/>
+            </svg>
+        </div>
+        <div class="th-brand">
+            <h1 class="th-title">QUANTUM QUBITS</h1>
+            <p class="th-sub">Quantum-Inspired Cyber Threat Detection</p>
+        </div>
+    </div>
+
+    <div class="th-center">
+        <div class="th-badge-sih">
+            <span>SIH 2026 &nbsp;&bull;&nbsp; SIH26141</span>
+        </div>
+    </div>
+
+    <div class="th-right">
+        <div class="sys-status-pill">
+            <span class="sys-beacon"></span>
+            <span class="sys-label">SYSTEM STATUS</span>
+            <span class="sys-online">ONLINE</span>
+        </div>
+    </div>
+</header>
+
+<!-- ==================== APP LAYOUT ==================== -->
+<div class="app-layout">
+
+    <!-- ===== LEFT SIDEBAR ===== -->
+    <aside class="sidebar">
+        <nav class="sb-nav">
+            <a class="sb-item active" data-sb="dashboard" href="#" id="sb-dashboard">
+                <span class="sb-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </span>
+                <span class="sb-label">Dashboard</span>
+            </a>
+
+            <a class="sb-item" data-sb="e2e" href="#" id="sb-e2e">
+                <span class="sb-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </span>
+                <span class="sb-label">End-to-End Suite</span>
+            </a>
+
+            <a class="sb-item" data-sb="security" href="#" id="sb-security">
+                <span class="sb-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </span>
+                <span class="sb-label">Security Analysis</span>
+            </a>
+
+            <a class="sb-item" data-sb="performance" href="#" id="sb-performance">
+                <span class="sb-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                        <line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                </span>
+                <span class="sb-label">Performance</span>
+            </a>
+
+            <a class="sb-item" data-sb="compliance" href="#" id="sb-compliance">
+                <span class="sb-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                </span>
+                <span class="sb-label">SIH Compliance</span>
+            </a>
+        </nav>
+
+        <div class="sb-bottom">
+            <div class="sb-info-card">
+                <div class="sb-atom-glow">
+                    <svg viewBox="0 0 100 100" width="32" height="32" fill="none">
+                        <circle cx="50" cy="50" r="7" fill="#38bdf8"/>
+                        <ellipse cx="50" cy="50" rx="38" ry="13" stroke="#38bdf8" stroke-width="2" transform="rotate(30 50 50)"/>
+                        <ellipse cx="50" cy="50" rx="38" ry="13" stroke="#818cf8" stroke-width="2" transform="rotate(90 50 50)"/>
+                    </svg>
+                </div>
+                <div class="sb-info-text">
+                    <div class="sb-info-head">Software-based</div>
+                    <div class="sb-info-main">Quantum Simulation</div>
+                    <div class="sb-info-sub">using Qiskit Statevector</div>
+                </div>
+            </div>
+
+            <div class="sb-attack-badge">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <span id="sidebar-attack-label">Simulated Attack</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- ============================================================
+             ROW 1: QUANTUM COMMUNICATION SIMULATION + ATTACK & VERIFIER
+             ============================================================ -->
+        <div class="hero-grid-row">
+
+            <!-- LEFT MAIN PANEL: QUANTUM COMMUNICATION SIMULATION -->
+            <section class="soc-card sim-hero-panel">
+                <div class="panel-header-row">
+                    <div class="panel-title-block">
+                        <h2 class="hero-panel-title">QUANTUM COMMUNICATION SIMULATION</h2>
+                        <p class="hero-panel-subtitle">Alice &rarr; Eve &rarr; Bob &nbsp;|&nbsp; <span id="sim-subtitle-attack">Simulated Attack</span></p>
+                    </div>
+
+                    <!-- Live Simulation Badge & State Selector Strip -->
+                    <div class="panel-top-controls">
+                        <div class="state-selector-strip">
+                            <span class="state-select-lbl">State:</span>
+                            <button type="button" class="state-btn" data-state="0">|0⟩</button>
+                            <button type="button" class="state-btn" data-state="1">|1⟩</button>
+                            <button type="button" class="state-btn active" data-state="+">|+⟩</button>
+                            <button type="button" class="state-btn" data-state="-">|−⟩</button>
+                        </div>
+                        <div id="comm-live-badge" class="live-pill">
+                            <span class="live-dot-green"></span>
+                            <span class="live-text">Live Simulation</span>
+                            <span id="sim-timer" class="live-time">2.4s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ALICE → EVE → BOB COMMUNICATION ARENA -->
+                <div class="comm-arena-wrapper">
+                    <!-- ALICE NODE -->
+                    <div id="node-alice" class="comm-node-col node-alice node-idle">
+                        <div class="node-glow-ring ring-cyan">
+                            <div class="node-avatar-circle circle-cyan">
+                                <svg class="avatar-svg svg-alice" viewBox="0 0 80 80" fill="none">
+                                    <circle cx="40" cy="30" r="14" stroke="#38bdf8" stroke-width="2.5" fill="#04122c"/>
+                                    <path d="M22 62c0-10 8-18 18-18s18 8 18 18" stroke="#38bdf8" stroke-width="2.5" fill="#04122c"/>
+                                    <path d="M30 26c0-6 4-10 10-10s10 4 10 10" stroke="#38bdf8" stroke-width="2"/>
+                                    <path d="M26 34c0 4 2 8 6 10M54 34c0 4-2 8-6 10" stroke="#38bdf8" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="node-info-block">
+                            <div class="node-name-text">ALICE</div>
+                            <div class="node-role-text role-cyan">SENDER</div>
+                            <div class="node-status-pill status-pill-green">
+                                <span class="dot-green"></span> ONLINE
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHANNEL 1: ALICE → EVE -->
+                    <div class="comm-channel-track" data-track="1">
+                        <div class="channel-line-glow line-cyan"></div>
+                        <div class="track-arrows arrows-cyan">
+                            <span>›</span><span>›</span><span>›</span>
+                        </div>
+                        <div id="packet-alice-eve" class="quantum-packet-box pkt-cyan">
+                            <div class="pkt-diamond">
+                                <span id="packet-state-1" class="pkt-state-label">|+⟩</span>
+                                <div class="pkt-inner-cross"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EVE NODE -->
+                    <div id="node-eve" class="comm-node-col node-eve node-active">
+                        <div class="node-glow-ring ring-red">
+                            <div class="node-avatar-circle circle-red">
+                                <svg class="avatar-svg svg-eve" viewBox="0 0 80 80" fill="none">
+                                    <path d="M26 62c0-10 6-18 14-18s14 8 14 18" stroke="#ef4444" stroke-width="2.5" fill="#20050e"/>
+                                    <path d="M40 18c-10 0-16 8-16 18 0 8 5 14 16 14s16-6 16-14c0-10-6-18-16-18z" stroke="#ef4444" stroke-width="2.5" fill="#20050e"/>
+                                    <path d="M33 34c2 2 5 3 7 3s5-1 7-3" stroke="#ef4444" stroke-width="2"/>
+                                    <circle cx="35" cy="31" r="2" fill="#ef4444"/>
+                                    <circle cx="45" cy="31" r="2" fill="#ef4444"/>
+                                    <path d="M24 34l8-10M56 34l-8-10" stroke="#ef4444" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="node-info-block">
+                            <div class="node-name-text">EVE</div>
+                            <div class="node-role-text role-red">ATTACKER</div>
+                            <div class="node-status-pill status-pill-red">
+                                <span class="dot-red"></span> ACTIVE
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHANNEL 2: EVE → BOB -->
+                    <div class="comm-channel-track" data-track="2">
+                        <div class="channel-line-glow line-red-purple"></div>
+                        <div class="track-arrows arrows-purple">
+                            <span>›</span><span>›</span><span>›</span>
+                        </div>
+                        <div id="packet-eve-bob" class="quantum-packet-box pkt-red">
+                            <div class="pkt-diamond pkt-diamond-red">
+                                <span id="packet-state-2" class="pkt-state-label">|−⟩</span>
+                                <div class="pkt-inner-cross cross-red"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOB NODE -->
+                    <div id="node-bob" class="comm-node-col node-bob node-idle">
+                        <div class="node-glow-ring ring-purple">
+                            <div class="node-avatar-circle circle-purple">
+                                <svg class="avatar-svg svg-bob" viewBox="0 0 80 80" fill="none">
+                                    <circle cx="40" cy="30" r="14" stroke="#a855f7" stroke-width="2.5" fill="#140728"/>
+                                    <path d="M22 62c0-10 8-18 18-18s18 8 18 18" stroke="#a855f7" stroke-width="2.5" fill="#140728"/>
+                                    <path d="M28 24c4-4 8-5 12-5s8 1 12 5" stroke="#a855f7" stroke-width="2"/>
+                                    <circle cx="35" cy="30" r="1.5" fill="#a855f7"/>
+                                    <circle cx="45" cy="30" r="1.5" fill="#a855f7"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="node-info-block">
+                            <div class="node-name-text">BOB</div>
+                            <div class="node-role-text role-purple">RECEIVER</div>
+                            <div class="node-status-pill status-pill-green">
+                                <span class="dot-green"></span> ONLINE
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUANTUM STATE HUD BAR -->
+                <div class="quantum-hud-bar">
+                    <div class="hud-atom-icon-box">
+                        <svg viewBox="0 0 100 100" width="30" height="30" fill="none">
+                            <circle cx="50" cy="50" r="6" fill="#38bdf8"/>
+                            <ellipse cx="50" cy="50" rx="36" ry="12" stroke="#38bdf8" stroke-width="2" transform="rotate(30 50 50)"/>
+                            <ellipse cx="50" cy="50" rx="36" ry="12" stroke="#818cf8" stroke-width="2" transform="rotate(90 50 50)"/>
+                        </svg>
+                    </div>
+
+                    <!-- Block 1: QUANTUM STATE -->
+                    <div class="hud-col hud-col-state">
+                        <div class="hud-sub-label">QUANTUM STATE</div>
+                        <div id="qs-display" class="hud-main-val">|+⟩</div>
+                        <div id="qs-desc" class="hud-sub-desc">X-basis eigenstate</div>
+                    </div>
+
+                    <div class="hud-sep"></div>
+
+                    <!-- Block 2: ATTACK (CHANNEL) -->
+                    <div class="hud-col hud-col-attack">
+                        <div id="qs-transform-label" class="hud-sub-label label-red">ATTACK (CHANNEL)</div>
+                        <div class="hud-attack-expr">
+                            <span id="qs-state-from">|+⟩</span>
+                            <span class="arr-sym">&rarr;</span>
+                            <span id="qs-transform-op" class="op-sym">Pauli-Z</span>
+                            <span class="arr-sym">&rarr;</span>
+                            <span id="qs-state-to">|−⟩</span>
+                        </div>
+                    </div>
+
+                    <div class="hud-sep"></div>
+
+                    <!-- Block 3: EXPECTED vs ACTUAL -->
+                    <div class="hud-col hud-col-comparison">
+                        <div class="hud-comp-pair">
+                            <div class="comp-col">
+                                <span class="comp-lbl">EXPECTED</span>
+                                <span id="qs-expected-val" class="comp-val">|+⟩</span>
+                            </div>
+                            <span class="comp-arrow">&rarr;</span>
+                            <div class="comp-col">
+                                <span class="comp-lbl">ACTUAL</span>
+                                <span id="qs-actual-val" class="comp-val val-red">|−⟩</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Run & Control Actions -->
+                    <div class="hud-actions-box">
+                        <button id="run-verify-btn" class="btn-run-verify">
+                            <span class="play-arrow">▶</span>
+                            <span>VERIFY</span>
+                        </button>
+                        <button id="reset-replay-btn" class="btn-icon-reset" title="Reset Replay Cache">
+                            ↻
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hidden slider & gate container for API parameters -->
+                <div class="hidden-controls-row">
+                    <div class="sub-ctrl-item">
+                        <span>Shots: <strong id="shots-val-display">1000</strong></span>
+                        <input type="range" id="shots-slider" min="100" max="5000" step="100" value="1000" class="mini-slider">
+                    </div>
+                    <div class="sub-ctrl-item">
+                        <span>Err%: <strong id="error-thresh-display">10.0%</strong></span>
+                        <input type="range" id="error-thresh-slider" min="1.0" max="50.0" step="0.5" value="10.0" class="mini-slider">
+                    </div>
+                    <div class="sub-ctrl-item">
+                        <span>&chi;&sup2;: <strong id="chi-thresh-display">10.0</strong></span>
+                        <input type="range" id="chi-thresh-slider" min="1.0" max="50.0" step="0.5" value="10.0" class="mini-slider">
+                    </div>
+                    <div id="channel-gate-group" class="sub-ctrl-item gate-radios">
+                        <span>Pauli Gate:</span>
+                        <label><input type="radio" name="channel_gate" value="Z" checked> Z</label>
+                        <label><input type="radio" name="channel_gate" value="X"> X</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: ATTACK SELECTOR + AUTHORIZED VERIFIER -->
+            <div class="right-stack-col">
+
+                <!-- ATTACK SELECTOR PANEL -->
+                <section class="soc-card attack-selector-card">
+                    <div class="card-head-line">
+                        <span class="head-bar-cyan"></span>
+                        <h3 class="card-head-title">ATTACK SELECTOR</h3>
+                    </div>
+
+                    <div class="attack-cards-grid">
+                        <!-- Top Row: 3 Cards -->
+                        <div class="atk-btn-card" data-attack="NONE">
+                            <div class="atk-icon-svg">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <div class="atk-title">NONE</div>
+                            <div class="atk-sub">No attack</div>
+                        </div>
+
+                        <div class="atk-btn-card" data-attack="FORGERY">
+                            <div class="atk-icon-svg">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                                </svg>
+                            </div>
+                            <div class="atk-title">FORGERY</div>
+                            <div class="atk-sub">Modify state</div>
+                        </div>
+
+                        <div class="atk-btn-card" data-attack="IMPERSONATION">
+                            <div class="atk-icon-svg">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="atk-title">IMPERSONATION</div>
+                            <div class="atk-sub">Fake identity</div>
+                        </div>
+
+                        <!-- Bottom Row: 2 Cards -->
+                        <div class="atk-btn-card" data-attack="REPLAY">
+                            <div class="atk-icon-svg">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"/>
+                                    <polyline points="1 20 1 14 7 14"/>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                                </svg>
+                            </div>
+                            <div class="atk-title">REPLAY</div>
+                            <div class="atk-sub">Reuse packet</div>
+                        </div>
+
+                        <div class="atk-btn-card active-card-red active" data-attack="CHANNEL">
+                            <div class="atk-icon-svg icon-red-pulse">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                            </div>
+                            <div class="atk-title text-red">CHANNEL</div>
+                            <div class="atk-sub text-red-sub">Apply Pauli-Z</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AUTHORIZED VERIFIER PANEL -->
+                <section class="soc-card verifier-card-section">
+                    <div class="card-head-line">
+                        <h3 class="card-head-title">AUTHORIZED VERIFIER</h3>
+                    </div>
+
+                    <div class="verifier-cards-row">
+                        <!-- BOB (Active) -->
+                        <label class="ver-pill-card ver-bob ver-active" id="ver-card-bob">
+                            <input type="radio" name="verifier" value="Bob" checked class="sr-only">
+                            <div class="ver-avatar-icon avatar-blue-glow">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#38bdf8" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="ver-text-box">
+                                <div class="ver-name">BOB</div>
+                                <div class="ver-auth-status text-green">Authorized</div>
+                            </div>
+                        </label>
+
+                        <!-- EVE (Unauthorized) -->
+                        <label class="ver-pill-card ver-eve" id="ver-card-eve">
+                            <input type="radio" name="verifier" value="Eve" class="sr-only">
+                            <div class="ver-avatar-icon avatar-red-glow">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ef4444" stroke-width="2">
+                                    <path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                                </svg>
+                            </div>
+                            <div class="ver-text-box">
+                                <div class="ver-name">EVE</div>
+                                <div class="ver-auth-status text-red">Unauthorized</div>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             ROW 2: BOB VERIFICATION PIPELINE & VERDICT CARD
+             ============================================================ -->
+        <div class="pipeline-verdict-row">
+
+            <!-- BOB VERIFICATION PIPELINE -->
+            <section class="soc-card pipeline-card">
+                <h3 class="pipeline-card-title">BOB VERIFICATION PIPELINE</h3>
+
+                <div id="bob-verification-box" class="pipeline-stages-row">
+                    <!-- Stage 1 -->
+                    <div id="bob-step-basis" class="pip-stage stage-done">
+                        <div class="pip-node-top">
+                            <div class="pip-circle pip-circle-check">
+                                <span class="pip-num">✓</span>
+                            </div>
+                            <div class="pip-line line-active"></div>
+                        </div>
+                        <div class="pip-info">
+                            <div class="pip-title">Basis Selection</div>
+                            <div id="bob-val-basis" class="pip-val val-green">X-basis</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div id="bob-step-meas" class="pip-stage stage-active">
+                        <div class="pip-node-top">
+                            <div class="pip-circle pip-circle-active">
+                                <span class="pip-num">2</span>
+                            </div>
+                            <div class="pip-line"></div>
+                        </div>
+                        <div class="pip-info">
+                            <div class="pip-title">Quantum Measurement</div>
+                            <div id="pip-meas-shots" class="pip-val val-blue">1000 shots</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div id="bob-step-counts" class="pip-stage stage-idle">
+                        <div class="pip-node-top">
+                            <div class="pip-circle">
+                                <span class="pip-num">3</span>
+                            </div>
+                            <div class="pip-line"></div>
+                        </div>
+                        <div class="pip-info">
+                            <div class="pip-title">Measurement Counts</div>
+                            <div id="bob-val-counts" class="pip-val">{0: 502, 1: 498}</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div id="bob-step-error" class="pip-stage stage-idle">
+                        <div class="pip-node-top">
+                            <div class="pip-circle">
+                                <span class="pip-num">4</span>
+                            </div>
+                            <div class="pip-line"></div>
+                        </div>
+                        <div class="pip-info">
+                            <div class="pip-title">Error Rate</div>
+                            <div id="bob-val-error" class="pip-val val-green">0.00%</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 5 -->
+                    <div id="bob-step-chi" class="pip-stage stage-idle">
+                        <div class="pip-node-top">
+                            <div class="pip-circle">
+                                <span class="pip-num">5</span>
+                            </div>
+                            <div class="pip-line"></div>
+                        </div>
+                        <div class="pip-info">
+                            <div class="pip-title">Chi-Square</div>
+                            <div id="bob-val-chi" class="pip-val">0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 6 -->
+                    <div id="bob-step-verdict" class="pip-stage stage-idle">
+                        <div class="pip-node-top">
+                            <div class="pip-circle">
+                                <span class="pip-num">6</span>
+                            </div>
+                        </div>
+                        <div class="pip-info">
+                            <div class="pip-title">Final Decision</div>
+                            <div id="bob-val-verdict" class="pip-val val-blue">Processing...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden compatibility tags -->
+                <div class="hidden" aria-hidden="true">
+                    <span id="stat-obs-error">--</span>
+                    <span id="stat-thresh-error">10.00%</span>
+                    <span id="stat-status-error" class="badge">--</span>
+                    <span id="stat-obs-chi">--</span>
+                    <span id="stat-thresh-chi">10.00</span>
+                    <span id="stat-status-chi" class="badge">--</span>
+                </div>
+            </section>
+
+            <!-- VERDICT PANEL -->
+            <section id="status-banner" class="soc-card verdict-card verdict-threat">
+                <div class="verdict-label-sub">VERDICT</div>
+                <div class="verdict-content-row">
+                    <div class="verdict-icon-circle">
+                        <span class="verdict-icon-text status-icon">!</span>
+                    </div>
+                    <div class="verdict-text-group">
+                        <h3 id="status-title" class="verdict-main-heading">THREAT</h3>
+                        <p id="status-subtitle" class="verdict-sub-heading">Attack Detected</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ============================================================
+             ROW 3: SIX METRIC CARDS
+             ============================================================ -->
+        <div class="metrics-grid-row">
+
+            <!-- Card 1: ERROR RATE -->
+            <div class="soc-card metric-card card-cyan">
+                <div class="metric-icon-wrap">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#38bdf8" stroke-width="2.2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div class="metric-data-wrap">
+                    <div class="metric-label-text">ERROR RATE</div>
+                    <div id="metric-error-rate" class="metric-large-val">0.00%</div>
+                    <div id="metric-error-thresh" class="metric-sub-detail">Threshold: 10.0%</div>
+                </div>
+            </div>
+
+            <!-- Card 2: CHI-SQUARE -->
+            <div class="soc-card metric-card card-purple">
+                <div class="metric-icon-wrap">
+                    <span class="sigma-symbol">&Sigma;</span>
+                </div>
+                <div class="metric-data-wrap">
+                    <div class="metric-label-text">CHI-SQUARE</div>
+                    <div id="metric-chi-square" class="metric-large-val">0.00</div>
+                    <div id="metric-chi-thresh" class="metric-sub-detail">Threshold: 10.0</div>
+                </div>
+            </div>
+
+            <!-- Card 3: DETECTION RATE -->
+            <div class="soc-card metric-card card-green">
+                <div class="metric-icon-wrap">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#10b981" stroke-width="2.2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <polyline points="9 12 11 14 15 10"/>
+                    </svg>
+                </div>
+                <div class="metric-data-wrap">
+                    <div class="metric-label-text">DETECTION RATE</div>
+                    <div id="sec-tpr" class="metric-large-val text-green">100%</div>
+                    <div class="metric-sub-detail">True Positive Rate</div>
+                </div>
+            </div>
+
+            <!-- Card 4: FNR -->
+            <div class="soc-card metric-card card-amber">
+                <div class="metric-icon-wrap">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f59e0b" stroke-width="2.2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="22" y1="12" x2="18" y2="12"/>
+                        <line x1="6" y1="12" x2="2" y2="12"/>
+                        <line x1="12" y1="6" x2="12" y2="2"/>
+                        <line x1="12" y1="22" x2="12" y2="18"/>
+                    </svg>
+                </div>
+                <div class="metric-data-wrap">
+                    <div class="metric-label-text">FNR</div>
+                    <div id="sec-fnr" class="metric-large-val text-amber">0%</div>
+                    <div class="metric-sub-detail">False Negative Rate</div>
+                </div>
+            </div>
+
+            <!-- Card 5: FPR -->
+            <div class="soc-card metric-card card-red">
+                <div class="metric-icon-wrap">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ef4444" stroke-width="2.2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
+                <div class="metric-data-wrap">
+                    <div class="metric-label-text">FPR</div>
+                    <div id="sec-fpr" class="metric-large-val text-red">0%</div>
+                    <div class="metric-sub-detail">False Positive Rate</div>
+                </div>
+            </div>
+
+            <!-- Card 6: TNR -->
+            <div class="soc-card metric-card card-blue">
+                <div class="metric-icon-wrap">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#38bdf8" stroke-width="2.2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="16 9 12 13 8 9"/>
+                    </svg>
+                </div>
+                <div class="metric-data-wrap">
+                    <div class="metric-label-text">TNR</div>
+                    <div id="sec-tnr" class="metric-large-val text-blue">100%</div>
+                    <div class="metric-sub-detail">True Negative Rate</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================
+             ROW 4: LOWER ANALYTICS TABS & LIVE EVENT TIMELINE
+             ============================================================ -->
+        <div class="lower-tabs-timeline-row">
+
+            <!-- LEFT: TABS & RESULTS TABLE -->
+            <div class="lower-table-section">
+                <!-- Tab Buttons -->
+                <div class="tab-button-bar">
+                    <button class="pill-tab-btn active" data-lt="lt-e2e" id="run-e2e-btn">END-TO-END SUITE</button>
+                    <button class="pill-tab-btn" data-lt="lt-security" id="run-sec-btn">SECURITY ANALYSIS</button>
+                    <button class="pill-tab-btn" data-lt="lt-performance" id="run-perf-btn">PERFORMANCE</button>
+                    <button class="pill-tab-btn" data-lt="lt-research" id="run-research-btn">SIH COMPLIANCE</button>
+                </div>
+
+                <!-- Tab Pane Container -->
+                <div class="tab-pane-container">
+                    <!-- Tab 1: E2E Table -->
+                    <div id="lt-e2e" class="soc-card lower-tab-pane active-pane">
+                        <h4 class="table-card-heading">Recent Test Results</h4>
+                        <div class="table-overflow-box">
+                            <table class="qds-data-table" id="e2e-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>State</th>
+                                        <th>Attack</th>
+                                        <th>Verifier</th>
+                                        <th>Result</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><strong>|+⟩</strong></td>
+                                        <td><span class="atk-tag-channel">CHANNEL</span></td>
+                                        <td>Bob</td>
+                                        <td><span class="res-badge-threat">THREAT</span></td>
+                                        <td><span class="detail-channel-text">Pauli-Z channel applied</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Security Analysis -->
+                    <div id="lt-security" class="soc-card lower-tab-pane hidden">
+                        <h4 class="table-card-heading">Security Analysis Metrics</h4>
+                        <div id="sec-analysis-body" class="markdown-output">
+                            <p class="table-placeholder">Click SECURITY ANALYSIS to load metrics.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Performance -->
+                    <div id="lt-performance" class="soc-card lower-tab-pane hidden">
+                        <h4 class="table-card-heading">Performance Benchmarks</h4>
+                        <div id="perf-results-container" class="markdown-output">
+                            <p class="table-placeholder">Click PERFORMANCE to run benchmark.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: SIH Compliance -->
+                    <div id="lt-research" class="soc-card lower-tab-pane hidden">
+                        <h4 class="table-card-heading">SIH Compliance Evaluation</h4>
+                        <div id="research-compliance-body" class="markdown-output">
+                            <p class="table-placeholder">Click SIH COMPLIANCE to evaluate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: LIVE EVENT TIMELINE -->
+            <section class="soc-card timeline-card">
+                <h3 class="timeline-card-heading">Live Event Timeline</h3>
+
+                <div id="event-timeline" class="timeline-event-list">
+                    <div class="timeline-row">
+                        <span class="tl-icon-avatar">👤</span>
+                        <span class="tl-timestamp">14:32:01</span>
+                        <span class="tl-desc">Alice prepared state |+⟩</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="tl-dot-blue">🔵</span>
+                        <span class="tl-timestamp">14:32:02</span>
+                        <span class="tl-desc">Packet transmitted</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="tl-icon-avatar">🕵️</span>
+                        <span class="tl-timestamp">14:32:03</span>
+                        <span class="tl-desc">Eve intercepted packet</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="tl-dot-red">🔴</span>
+                        <span class="tl-timestamp">14:32:03</span>
+                        <span class="tl-desc text-red">Pauli-Z applied (|+⟩ &rarr; |−⟩)</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="tl-icon-avatar">👤</span>
+                        <span class="tl-timestamp">14:32:04</span>
+                        <span class="tl-desc">Bob received state |−⟩</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="tl-dot-blue">🔵</span>
+                        <span class="tl-timestamp">14:32:05</span>
+                        <span class="tl-desc">X-basis measurement</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="tl-dot-red">🔴</span>
+                        <span class="tl-timestamp">14:32:06</span>
+                        <span class="tl-desc text-red">Threat detected</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ========== HIDDEN COMPATIBILITY ELEMENTS ========== -->
+        <div class="hidden" aria-hidden="true">
+            <div id="bar-0" style="width:0%"></div>
+            <div id="bar-1" style="width:0%"></div>
+            <span id="count-0">0</span>
+            <span id="count-1">0</span>
+            <div id="attack-exp-box">No attack applied.</div>
+            <div id="threat-reason-box">No verification executed yet.</div>
+            <span id="metric-basis">-- Basis</span>
+            <span id="metric-state">State: |0⟩</span>
+            <span id="metric-verdict">--</span>
+            <span id="metric-attack">Vector: NONE</span>
+        </div>
+
+    </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
